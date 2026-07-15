@@ -2,49 +2,72 @@
 
 /*
   Vision Lavage — Système de design
-  Palette : bleu profond (confiance/eau) + turquoise (fraîcheur/propreté)
-  + accent lime (appels à l'action). Site vitrine clair, épuré, rassurant.
+  Direction : surf / hippie « Outer Banks » années 70, version haut de gamme.
+  Kodachrome délavé, sable chaud, teal poussiéreux, marigold, terracotta,
+  bois flotté. Analog, groovy, mais sophistiqué — pas criard.
 */
 
 @theme {
-  /* Bleu de marque (échelle principale) */
-  --color-brand-50: #eff9ff;
-  --color-brand-100: #daf1ff;
-  --color-brand-200: #bde7ff;
-  --color-brand-300: #8fd8ff;
-  --color-brand-400: #59c1ff;
-  --color-brand-500: #33a4fc;
-  --color-brand-600: #1c84f1;
-  --color-brand-700: #156bde;
-  --color-brand-800: #1857b4;
-  --color-brand-900: #0e3a73;
-  --color-brand-950: #0a2547;
+  /* Teal poussiéreux — couleur de marque (surf fané) */
+  --color-brand-50:  #eef5f2;
+  --color-brand-100: #d6e8e2;
+  --color-brand-200: #afd2c9;
+  --color-brand-300: #7eb6ab;
+  --color-brand-400: #519a8c;
+  --color-brand-500: #357f73;
+  --color-brand-600: #2a685e;
+  --color-brand-700: #24544c;
+  --color-brand-800: #1f443e;
+  --color-brand-900: #193632;
+  --color-brand-950: #0e211e;
 
-  /* Turquoise (fraîcheur / propreté) */
-  --color-aqua-400: #2dd4d4;
-  --color-aqua-500: #06b6c4;
-  --color-aqua-600: #0894a8;
+  /* Marigold / moutarde délavée — soleil, accents */
+  --color-sun-200: #f7e2b0;
+  --color-sun-300: #f0cd82;
+  --color-sun-400: #e7b455;
+  --color-sun-500: #d99a2c;
+  --color-sun-600: #bd7d1c;
 
-  /* Accent lime (CTA) */
-  --color-accent-400: #a3e635;
-  --color-accent-500: #84cc16;
-  --color-accent-600: #65a30d;
+  /* Terracotta / rouille — CTA, chaleur */
+  --color-clay-300: #eaa17c;
+  --color-clay-400: #e07a4d;
+  --color-clay-500: #cf5f31;
+  --color-clay-600: #b44a22;
+  --color-clay-700: #92381a;
 
-  /* Neutres */
-  --color-ink: #0b1b2b;
-  --color-slate-soft: #5b6b7b;
-  --color-cloud: #f4f8fb;
+  /* Sable & papier — fonds clairs, chauds */
+  --color-sand-100: #faf3e4;
+  --color-sand-200: #f2e6cb;
+  --color-sand-300: #e8d4ac;
+  --color-sand-400: #dcc08d;
 
-  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  /* Bois flotté — accents chaleureux */
+  --color-cedar-500: #8a6f52;
+  --color-cedar-600: #6e5744;
+  --color-cedar-700: #574332;
 
-  --radius-xl2: 1.25rem;
+  /* Olive fanée — accent secondaire discret */
+  --color-olive-500: #8b9469;
+  --color-olive-600: #6f784f;
 
-  --shadow-soft: 0 10px 40px -12px rgba(10, 37, 71, 0.18);
-  --shadow-card: 0 4px 24px -8px rgba(10, 37, 71, 0.14);
+  /* Encre bois flotté (texte) — brun-noir chaud, jamais pur */
+  --color-ink:      #2a2019;
+  --color-ink-soft: #6a5b4d;
+
+  --color-cream: #f6eddb;
+
+  --font-sans: var(--font-body), system-ui, sans-serif;
+  --font-display: var(--font-display), Georgia, serif;
+
+  --radius-xl2: 1.5rem;
+
+  --shadow-soft: 0 22px 60px -26px rgba(42, 32, 25, .40);
+  --shadow-card: 0 10px 34px -14px rgba(42, 32, 25, .28);
+  --shadow-cta: 0 16px 34px -12px rgba(180, 74, 34, .5);
 }
 
 :root {
-  --background: #ffffff;
+  --background: var(--color-cream);
   --foreground: var(--color-ink);
 }
 
@@ -57,24 +80,74 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* Focus visible accessible sur toute la page */
+::selection {
+  background: var(--color-clay-500);
+  color: #fff;
+}
+
 :focus-visible {
-  outline: 2px solid var(--color-brand-600);
+  outline: 2px solid var(--color-clay-500);
   outline-offset: 2px;
 }
 
-/* Utilitaire : dégradé de marque réutilisable */
-@utility bg-brand-gradient {
+/* Crépuscule chaud — sections foncées (footer, bandeaux) */
+@utility bg-dusk-gradient {
   background-image: linear-gradient(
-    135deg,
+    160deg,
     var(--color-brand-950) 0%,
-    var(--color-brand-800) 55%,
-    var(--color-aqua-600) 100%
+    var(--color-brand-800) 48%,
+    #3a2417 100%
   );
+}
+
+/* Voile chaud posé sur une photo/vidéo — lisibilité du texte */
+@utility bg-golden-veil {
+  background-image: linear-gradient(
+    98deg,
+    rgba(30, 22, 16, .82) 0%,
+    rgba(30, 22, 16, .5) 40%,
+    rgba(207, 95, 49, .14) 100%
+  );
+}
+
+/* Grain analog — texture film subtile (à poser en overlay) */
+@utility bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
 }
 
 @utility text-balance {
   text-wrap: balance;
+}
+
+/* Soulignement « vague » marigold */
+@utility underline-wave {
+  text-decoration: none;
+  background-image: linear-gradient(var(--color-sun-400), var(--color-sun-400));
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 3px;
+  padding-bottom: 2px;
+}
+
+/* Révélation au scroll (activée par .is-visible depuis le composant Reveal) */
+@utility reveal-init {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1);
+}
+
+.reveal-init.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    transition-duration: .001ms !important;
+  }
 }

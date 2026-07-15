@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vision Lavage — site web
 
-## Getting Started
+Site vitrine de **Vision Lavage** (lavage de vitres et lavage à pression), orienté
+génération de demandes de soumission. Direction visuelle : côtière « Outer Banks / Pogue »
+(Westfalia turquoise, golden hour, tons sable).
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router, TypeScript)
+- **Tailwind CSS v4** — système de design dans `src/app/globals.css`
+- **React Hook Form + Zod** — formulaire de soumission validé
+- **Resend** — envoi des soumissions par courriel
+- **lucide-react** — icônes
+
+## Démarrer
 
 ```bash
+npm install
+cp .env.example .env.local   # puis remplir RESEND_API_KEY
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ouvrir http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Configuration
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Toute l'information de l'entreprise est centralisée dans **`src/lib/site.ts`**
+(nom, téléphone, courriel, services, secteurs desservis, navigation). C'est le
+premier fichier à ajuster.
 
-## Learn More
+⚠️ **À remplacer avant la mise en ligne :**
+- Le numéro de téléphone `phoneDisplay` / `phoneHref` (placeholder `819 000-0000`).
+- Le domaine `url` si différent de `visionlavage.ca`.
 
-To learn more about Next.js, take a look at the following resources:
+## Envoi des soumissions (Resend)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Les demandes du formulaire sont envoyées à `visionlavage@gmail.com` via Resend.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Créer un compte sur [resend.com](https://resend.com).
+2. Générer une clé API et la mettre dans `RESEND_API_KEY`.
+3. (Production) Vérifier un domaine d'envoi et ajuster `SOUMISSION_FROM`.
 
-## Deploy on Vercel
+Sans `RESEND_API_KEY`, le site fonctionne quand même : les demandes sont
+journalisées côté serveur (console) et l'utilisateur reçoit une confirmation,
+mais aucun courriel n'est envoyé. Pratique en développement.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+  app/
+    page.tsx                 # Accueil
+    soumission/              # Formulaire de soumission
+    services/[slug]/         # Pages services (vitres, pression)
+    secteurs/                # Liste + pages par ville (SEO local)
+    a-propos/  contact/
+    api/soumission/route.ts  # Envoi courriel (Resend)
+    sitemap.ts  robots.ts
+  components/                # Header, footer, hero, formulaire, UI…
+  lib/site.ts                # Config centrale
+public/heros/                # Visuels (fonds de héro, crew + Westfalia)
+```
+
+## Visuels
+
+Les images de `public/heros/` ont été générées pour établir la direction
+artistique. À remplacer par de vraies photos de réalisations (avant/après)
+quand elles seront disponibles.
