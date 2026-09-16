@@ -17,20 +17,20 @@ export function EnTete() {
   const chemin = usePathname()
 
   return (
-    <header className="sticky top-0 z-40 border-b border-bordure bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-trait bg-blanc/85 backdrop-blur-md">
       <a
         href="#contenu"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-marque-800 focus:px-4 focus:py-2 focus:text-clair"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-6 focus:top-4 focus:z-50 focus:rounded-full focus:bg-encre-800 focus:px-5 focus:py-2.5 focus:text-blanc"
       >
         Aller au contenu
       </a>
 
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
+      <div className="mx-auto flex max-w-[74rem] items-center justify-between gap-6 px-6 py-5 sm:px-8">
         <Link href="/" aria-label={`${site.nom} — accueil`}>
           <Logo />
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Principale">
+        <nav className="hidden items-center gap-10 md:flex" aria-label="Principale">
           {LIENS.map((l) => {
             const actif = chemin === l.href || chemin.startsWith(`${l.href}/`)
             return (
@@ -38,19 +38,25 @@ export function EnTete() {
                 key={l.href}
                 href={l.href}
                 aria-current={actif ? 'page' : undefined}
-                className={`text-sm font-medium underline-offset-8 transition hover:text-accent-700 ${
-                  actif ? 'text-accent-700 underline' : 'text-texte'
+                className={`relative text-[0.92rem] transition-colors hover:text-accent-700 ${
+                  actif ? 'text-encre-800' : 'text-texte-doux'
                 }`}
               >
                 {l.libelle}
+                {actif && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute -bottom-1.5 left-0 h-px w-full bg-accent-500"
+                  />
+                )}
               </Link>
             )
           })}
           <Link
             href="/soumission"
-            className="rounded-full bg-marque-800 px-5 py-2.5 text-sm font-semibold text-clair transition hover:bg-marque-700"
+            className="rounded-full border border-trait-fort px-6 py-2.5 text-[0.88rem] font-medium transition-colors hover:border-encre-800 hover:bg-ivoire"
           >
-            Demander une soumission
+            Soumission
           </Link>
         </nav>
 
@@ -59,15 +65,12 @@ export function EnTete() {
           onClick={() => setOuvert((o) => !o)}
           aria-expanded={ouvert}
           aria-controls="menu-mobile"
-          className="inline-flex items-center gap-2 rounded-full border border-bordure px-4 py-2 text-sm font-medium md:hidden"
+          className="inline-flex items-center gap-2.5 rounded-full border border-trait-fort px-5 py-2.5 text-[0.85rem] font-medium md:hidden"
         >
-          <span
-            aria-hidden="true"
-            className="flex h-3.5 w-4 flex-col justify-between"
-          >
-            <span className="block h-0.5 w-full bg-texte" />
-            <span className="block h-0.5 w-full bg-texte" />
-            <span className="block h-0.5 w-full bg-texte" />
+          <span aria-hidden="true" className="flex h-3 w-3.5 flex-col justify-between">
+            <span className="block h-px w-full bg-encre-800" />
+            <span className="block h-px w-full bg-encre-800" />
+            <span className="block h-px w-full bg-encre-800" />
           </span>
           Menu
         </button>
@@ -77,15 +80,15 @@ export function EnTete() {
         <nav
           id="menu-mobile"
           aria-label="Principale, mobile"
-          className="border-t border-bordure bg-white px-4 py-4 md:hidden"
+          className="border-t border-trait bg-blanc px-6 py-5 md:hidden"
         >
-          <ul className="flex flex-col gap-1">
+          <ul className="flex flex-col">
             {LIENS.map((l) => (
-              <li key={l.href}>
+              <li key={l.href} className="border-b border-trait last:border-0">
                 <Link
                   href={l.href}
                   onClick={() => setOuvert(false)}
-                  className="block rounded-lg px-3 py-3 text-base font-medium hover:bg-gris"
+                  className="block py-4 text-[1.05rem]"
                 >
                   {l.libelle}
                 </Link>
@@ -95,15 +98,15 @@ export function EnTete() {
           <Link
             href="/soumission"
             onClick={() => setOuvert(false)}
-            className="mt-3 block rounded-full bg-marque-800 px-5 py-3 text-center text-sm font-semibold text-clair"
+            className="mt-5 block rounded-full bg-encre-800 px-6 py-3.5 text-center text-[0.9rem] font-medium text-blanc"
           >
             Demander une soumission
           </Link>
           <a
             href={telHref}
-            className="mt-2 block rounded-full border border-accent-500 px-5 py-3 text-center text-sm font-semibold text-accent-700"
+            className="mt-2.5 block rounded-full border border-trait-fort px-6 py-3.5 text-center text-[0.9rem] font-medium"
           >
-            Appeler {site.contact.telephoneAffiche}
+            {site.contact.telephoneAffiche}
           </a>
         </nav>
       )}

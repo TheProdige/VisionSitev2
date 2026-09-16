@@ -9,7 +9,7 @@ import { site, telHref } from '@/content/site'
 const INITIAL: EtatFormulaire = { statut: 'vierge' }
 
 const champBase =
-  'w-full rounded-xl border bg-white px-4 py-3 text-base outline-none transition placeholder:text-texte-doux/55 focus:border-marque-800 focus:ring-2 focus:ring-accent-500/35'
+  'w-full rounded-[4px] border bg-blanc px-4 py-3 text-[1rem] outline-none transition placeholder:text-texte-doux/55 focus:border-encre-800 focus:ring-2 focus:ring-accent-500/30'
 
 export function Formulaire() {
   const [etat, action, enCours] = useActionState(envoyerDemande, INITIAL)
@@ -18,9 +18,9 @@ export function Formulaire() {
     return (
       <div
         role="status"
-        className="rounded-2xl border border-accent-500 bg-accent-100 p-8"
+        className="border-t-2 border-accent-500 bg-accent-100 p-9"
       >
-        <h2 className="text-2xl font-bold">Demande reçue.</h2>
+        <h2 className="text-[1.9rem]">Demande reçue.</h2>
         <p className="mt-3 leading-relaxed text-texte-doux">
           On vous revient d’ici un jour ouvrable. Si c’est urgent, n’attendez
           pas le courriel :{' '}
@@ -44,7 +44,7 @@ export function Formulaire() {
       {etat.statut === 'erreur' && etat.message && (
         <p
           role="alert"
-          className="rounded-xl border border-red-300 bg-red-50 px-4 py-3 text-sm font-medium text-red-800"
+          className="rounded-[4px] border border-red-300 bg-red-50 px-4 py-3 text-sm font-medium text-red-800"
         >
           {etat.message}
         </p>
@@ -57,7 +57,7 @@ export function Formulaire() {
             name="nom"
             defaultValue={val?.nom ?? ''}
             autoComplete="name"
-            className={`${champBase} ${err.nom ? 'border-red-400' : 'border-bordure'}`}
+            className={`${champBase} ${err.nom ? 'border-red-400' : 'border-trait'}`}
           />
         </Champ>
 
@@ -70,7 +70,7 @@ export function Formulaire() {
             inputMode="tel"
             autoComplete="tel"
             placeholder="819 555-1234"
-            className={`${champBase} ${err.telephone ? 'border-red-400' : 'border-bordure'}`}
+            className={`${champBase} ${err.telephone ? 'border-red-400' : 'border-trait'}`}
           />
         </Champ>
 
@@ -86,7 +86,7 @@ export function Formulaire() {
             defaultValue={val?.courriel ?? ''}
             type="email"
             autoComplete="email"
-            className={`${champBase} ${err.courriel ? 'border-red-400' : 'border-bordure'}`}
+            className={`${champBase} ${err.courriel ? 'border-red-400' : 'border-trait'}`}
           />
         </Champ>
 
@@ -96,7 +96,7 @@ export function Formulaire() {
             name="ville"
             defaultValue={val?.ville ?? ''}
             autoComplete="address-level2"
-            className={`${champBase} ${err.ville ? 'border-red-400' : 'border-bordure'}`}
+            className={`${champBase} ${err.ville ? 'border-red-400' : 'border-trait'}`}
           />
         </Champ>
       </div>
@@ -106,7 +106,7 @@ export function Formulaire() {
           id="service"
           name="service"
           defaultValue={val?.service ?? ''}
-          className={`${champBase} ${err.service ? 'border-red-400' : 'border-bordure'}`}
+          className={`${champBase} ${err.service ? 'border-red-400' : 'border-trait'}`}
         >
           <option value="">Je ne sais pas trop</option>
           {services.map((s) => (
@@ -130,11 +130,11 @@ export function Formulaire() {
           defaultValue={val?.message ?? ''}
           rows={6}
           maxLength={4000}
-          className={`${champBase} resize-y ${err.message ? 'border-red-400' : 'border-bordure'}`}
+          className={`${champBase} resize-y ${err.message ? 'border-red-400' : 'border-trait'}`}
         />
       </Champ>
 
-      <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-bordure bg-gris px-4 py-4">
+      <label className="flex cursor-pointer items-start gap-3 rounded-[4px] border border-trait bg-ivoire px-4 py-4">
         <input
           type="checkbox"
           name="urgent"
@@ -142,7 +142,7 @@ export function Formulaire() {
           className="mt-0.5 h-5 w-5 shrink-0 accent-[var(--accent-500)]"
         />
         <span className="text-sm">
-          <span className="font-semibold">C’est une urgence.</span>{' '}
+          <span className="font-medium">C’est une urgence.</span>{' '}
           <span className="text-texte-doux">
             Pour une panne en cours ou une odeur de brûlé, appelez plutôt au{' '}
             <a href={telHref} className="font-semibold text-accent-700 underline">
@@ -162,7 +162,7 @@ export function Formulaire() {
       <button
         type="submit"
         disabled={enCours}
-        className="w-full rounded-full bg-accent-500 px-8 py-4 text-base font-bold text-marque-800 transition hover:bg-accent-300 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+        className="w-full rounded-full bg-encre-800 px-9 py-4 text-[0.95rem] font-medium text-blanc transition-colors hover:bg-encre-700 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
       >
         {enCours ? 'Envoi en cours…' : 'Envoyer ma demande'}
       </button>
@@ -192,7 +192,7 @@ function Champ({
 }) {
   return (
     <div>
-      <label htmlFor={id} className="block text-sm font-semibold">
+      <label htmlFor={id} className="block text-sm font-medium">
         {libelle}
         {requis && (
           <span className="ml-1 text-accent-700" aria-hidden="true">

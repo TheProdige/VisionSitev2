@@ -5,76 +5,70 @@ import { services } from '@/content/services'
 
 export function PiedDePage() {
   return (
-    <footer className="mt-24 bg-marque-900 text-clair">
-      <div className="mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="sm:col-span-2 lg:col-span-1">
-          <Logo ton="fonce" />
-          <p className="mt-5 max-w-xs text-sm leading-relaxed text-clair/70">
-            {site.slogan}
-          </p>
-        </div>
+    <footer className="border-t border-trait bg-ivoire">
+      <div className="mx-auto max-w-[74rem] px-6 py-20 sm:px-8">
+        <div className="grid gap-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+          <div>
+            <Logo />
+            <p className="mesure mt-6 text-[0.95rem] leading-[1.7] text-texte-doux">
+              {site.slogan}
+            </p>
+            <a
+              href={telHref}
+              className="mt-7 inline-block font-titre text-[1.75rem] text-encre-800 underline-offset-[6px] hover:underline"
+            >
+              {site.contact.telephoneAffiche}
+            </a>
+          </div>
 
-        <div>
-          <h2 className="text-sm font-semibold tracking-wide text-accent-300">
-            Services
-          </h2>
-          <ul className="mt-4 space-y-2.5 text-sm">
+          <Colonne titre="Services">
             {services.map((s) => (
               <li key={s.slug}>
-                <Link
-                  href={`/services/${s.slug}`}
-                  className="text-clair/80 underline-offset-4 hover:text-clair hover:underline"
-                >
+                <Link href={`/services/${s.slug}`} className="hover:text-accent-700">
                   {s.titre}
                 </Link>
               </li>
             ))}
-          </ul>
-        </div>
+          </Colonne>
 
-        <div>
-          <h2 className="text-sm font-semibold tracking-wide text-accent-300">
-            Nous joindre
-          </h2>
-          <ul className="mt-4 space-y-2.5 text-sm text-clair/80">
+          <Colonne titre="Nous joindre">
             <li>
-              <a href={telHref} className="hover:text-clair">
-                {site.contact.telephoneAffiche}
-              </a>
-            </li>
-            <li>
-              <a
-                href={`mailto:${site.contact.courriel}`}
-                className="break-all hover:text-clair"
-              >
+              <a href={`mailto:${site.contact.courriel}`} className="break-all hover:text-accent-700">
                 {site.contact.courriel}
               </a>
             </li>
             <li className="pt-2">{site.horaires.semaine}</li>
-            <li className="text-accent-300">{site.horaires.urgence}</li>
-          </ul>
+            <li className="text-accent-700">{site.horaires.urgence}</li>
+          </Colonne>
+
+          <Colonne titre="Territoire">
+            <li className="leading-[1.8]">{site.zones.join(' · ')}</li>
+          </Colonne>
         </div>
 
-        <div>
-          <h2 className="text-sm font-semibold tracking-wide text-accent-300">
-            Territoire
-          </h2>
-          <p className="mt-4 text-sm leading-relaxed text-clair/80">
-            {site.zones.join(' · ')}
-          </p>
-        </div>
-      </div>
-
-      <div className="border-t border-clair/10">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 text-xs text-clair/55 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-16 flex flex-col gap-2 border-t border-trait pt-8 text-[0.8rem] text-texte-doux sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {new Date().getFullYear()} {site.nom}. Licence RBQ{' '}
-            {site.licences.rbq}.
+            © {new Date().getFullYear()} {site.nom}. Licence RBQ {site.licences.rbq}.
             {site.licences.cmeq && ' Membre de la CMEQ.'}
           </p>
-          <p>{site.contact.adresse.ville}, {site.contact.adresse.province}</p>
+          <p>
+            {site.contact.adresse.ville}, {site.contact.adresse.province}
+          </p>
         </div>
       </div>
     </footer>
+  )
+}
+
+function Colonne({ titre, children }: { titre: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <h2 className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-texte-doux">
+        {titre}
+      </h2>
+      <ul className="mt-6 space-y-3 text-[0.92rem] leading-[1.6] text-texte">
+        {children}
+      </ul>
+    </div>
   )
 }

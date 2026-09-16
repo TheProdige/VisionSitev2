@@ -13,12 +13,12 @@ export const metadata: Metadata = {
 export default function PageAPropos() {
   return (
     <>
-      <div className="border-b border-bordure bg-gris">
+      <div className="border-b border-trait bg-ivoire">
         <Conteneur className="py-16 sm:py-20">
           <div className="grid items-center gap-10 sm:grid-cols-[auto_1fr]">
             <Marque className="h-24 w-24 shrink-0 rounded-[22px]" />
             <div>
-              <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl">
+              <h1 className="text-[2.6rem] leading-[1.06] sm:text-[3.4rem]">
                 Un métier qui ne pardonne pas l’à-peu-près.
               </h1>
               <p className="mt-5 max-w-2xl text-lg leading-relaxed text-texte-doux">
@@ -57,16 +57,16 @@ export default function PageAPropos() {
           </div>
 
           <div className="space-y-8">
-            <div className="rounded-2xl border border-bordure p-7">
-              <h2 className="text-lg font-bold">Licences et affiliations</h2>
+            <div className="border-t border-trait pt-7">
+              <h2 className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-texte-doux">Licences et affiliations</h2>
               <dl className="mt-5 space-y-4 text-sm">
                 <div>
-                  <dt className="font-semibold">Licence RBQ</dt>
+                  <dt className="font-medium">Licence RBQ</dt>
                   <dd className="mt-1 text-texte-doux">{site.licences.rbq}</dd>
                 </div>
                 {site.licences.cmeq && (
                   <div>
-                    <dt className="font-semibold">CMEQ</dt>
+                    <dt className="font-medium">CMEQ</dt>
                     <dd className="mt-1 text-texte-doux">
                       Membre de la Corporation des maîtres électriciens du
                       Québec
@@ -74,7 +74,7 @@ export default function PageAPropos() {
                   </div>
                 )}
                 <div>
-                  <dt className="font-semibold">Assurance responsabilité</dt>
+                  <dt className="font-medium">Assurance responsabilité</dt>
                   <dd className="mt-1 text-texte-doux">
                     En vigueur — attestation fournie sur demande
                   </dd>
@@ -82,14 +82,14 @@ export default function PageAPropos() {
               </dl>
             </div>
 
-            <div className="rounded-2xl bg-marque-800 p-7 text-clair">
-              <h2 className="text-lg font-bold">Une question ?</h2>
-              <p className="mt-3 text-sm leading-relaxed text-clair/75">
+            <div className="border-t-2 border-encre-800 bg-ivoire p-8">
+              <h2 className="text-[1.5rem]">Une question ?</h2>
+              <p className="mt-4 text-[0.95rem] leading-[1.7] text-texte-doux">
                 Appeler ne coûte rien, et on répond honnêtement même quand la
                 réponse est « ce n’est pas nécessaire ».
               </p>
               <div className="mt-5">
-                <Bouton href={telHref} variante="accent">
+                <Bouton href={telHref} variante="principal">
                   {site.contact.telephoneAffiche}
                 </Bouton>
               </div>
@@ -98,7 +98,7 @@ export default function PageAPropos() {
         </div>
       </Section>
 
-      <Section fond="gris">
+      <Section fond="ivoire">
         <TitreSection
           surtitre="Engagements"
           titre="Ce sur quoi vous pouvez compter."
@@ -110,7 +110,7 @@ export default function PageAPropos() {
             ['Garantie', 'La main-d’œuvre est garantie, et les fabricants couvrent le matériel posé.'],
           ].map(([titre, texte]) => (
             <li key={titre}>
-              <h3 className="text-lg font-bold">{titre}</h3>
+              <h3 className="text-[1.05rem] font-medium">{titre}</h3>
               <p className="mt-2.5 leading-relaxed text-texte-doux">{texte}</p>
             </li>
           ))}

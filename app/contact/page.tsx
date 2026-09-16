@@ -12,7 +12,7 @@ export default function PageContact() {
   return (
     <>
       <Conteneur className="py-16 sm:py-20">
-        <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl">
+        <h1 className="text-[2.6rem] leading-[1.06] sm:text-[3.4rem]">
           Nous joindre
         </h1>
         <p className="mt-5 max-w-xl text-lg leading-relaxed text-texte-doux">
@@ -25,7 +25,7 @@ export default function PageContact() {
           <Carte titre="Téléphone" principal>
             <a
               href={telHref}
-              className="text-2xl font-extrabold text-marque-800 underline-offset-4 hover:underline"
+              className="font-titre text-[2.1rem] leading-none text-encre-800 underline-offset-[7px] hover:underline"
             >
               {site.contact.telephoneAffiche}
             </a>
@@ -41,7 +41,7 @@ export default function PageContact() {
           <Carte titre="Courriel">
             <a
               href={`mailto:${site.contact.courriel}`}
-              className="break-all font-semibold text-marque-800 underline-offset-4 hover:underline"
+              className="break-all font-semibold text-encre-800 underline-offset-4 hover:underline"
             >
               {site.contact.courriel}
             </a>
@@ -61,7 +61,7 @@ export default function PageContact() {
         </div>
       </Conteneur>
 
-      <Section fond="gris">
+      <Section fond="ivoire">
         <TitreSection
           surtitre="Territoire desservi"
           titre="Où on se déplace."
@@ -71,7 +71,7 @@ export default function PageContact() {
           {site.zones.map((z) => (
             <li
               key={z}
-              className="rounded-full border border-bordure bg-white px-4 py-2 text-sm font-medium"
+              className="rounded-full border border-trait bg-white px-4 py-2 text-sm font-medium"
             >
               {z}
             </li>
@@ -93,11 +93,11 @@ function Carte({
 }) {
   return (
     <div
-      className={`rounded-2xl border p-7 ${
-        principal ? 'border-accent-500 bg-accent-100' : 'border-bordure'
+      className={`p-7 ${
+        principal ? 'border-t-2 border-encre-800 bg-ivoire' : 'border-t border-trait'
       }`}
     >
-      <h2 className="text-xs font-bold uppercase tracking-[0.18em] text-texte-doux">
+      <h2 className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-texte-doux">
         {titre}
       </h2>
       <div className="mt-4">{children}</div>

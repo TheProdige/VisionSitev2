@@ -1,79 +1,98 @@
 @import "tailwindcss";
 
 /**
- * Jetons de design — piste A « L'accent éclair » : encre + ambre.
+ * Jetons de design — direction « blanc premium ».
  *
- * Les noms sont volontairement sémantiques (`marque`, `accent`, `clair`) et
- * non descriptifs : changer de direction visuelle ne doit toucher que les
- * valeurs de ce bloc, jamais les composants.
+ * Le parti pris : du blanc, de l'air, et une seule chose qui crie — le logo.
+ * Les titres passent en sérif éditorial ; l'ambre de marque ne sert plus de
+ * grand aplat mais d'accent rare (filet, pastille, un seul bouton).
+ *
+ * Les noms restent sémantiques (`encre`, `accent`, `ivoire`) : changer de
+ * direction ne touche que ce bloc, jamais les composants.
  */
 :root {
-  /* Encre — la couleur de marque */
-  --marque-900: #06080c;
-  --marque-800: #0b0e14;
-  --marque-700: #161b24;
-  --marque-600: #252d3b;
+  /* Encre — un noir adouci, jamais #000 : le noir pur durcit une page claire */
+  --encre-900: #0d0f13;
+  --encre-800: #14161a;
+  --encre-700: #22262e;
+  --encre-500: #5f6470;
+  --encre-300: #8b909c;
 
-  /* Ambre — l'accent.
+  /* Ambre — l'accent, hérité du logo.
      Les teintes 800 à 600 existent uniquement pour le TEXTE : l'ambre de
-     marque (#FFB524) tombe sous 3:1 sur blanc et ne peut pas porter de mot.
-     Il sert aux aplats, où l'encre se pose dessus avec un contraste massif. */
+     marque tombe à 1,77:1 sur blanc et ne peut porter aucun mot. Il reste
+     sur les aplats, où l'encre se pose dessus à 10,93:1. */
   --accent-800: #6b4500;
   --accent-700: #8a5a00;
   --accent-600: #a66d00;
   --accent-500: #ffb524;
   --accent-300: #ffd180;
-  --accent-100: #fff2dc;
+  --accent-100: #fff6e8;
 
-  /* Neutres froids */
-  --clair: #ffffff;
-  --gris: #f4f6f9;
-  --gris-2: #e9edf2;
+  /* Neutres chauds — un blanc cassé qui réchauffe sans virer au crème */
+  --blanc: #ffffff;
+  --ivoire: #faf9f7;
+  --ivoire-2: #f4f2ee;
+  --trait: #e9e6e0;
+  --trait-fort: #d9d5cc;
 
-  --texte: #0b0e14;
-  --texte-doux: #525d6e;
-  --bordure: #e2e6ec;
+  --texte: var(--encre-800);
+  --texte-doux: var(--encre-500);
 
-  --page: var(--clair);
+  --page: var(--blanc);
 }
 
 @theme inline {
-  --color-marque-900: var(--marque-900);
-  --color-marque-800: var(--marque-800);
-  --color-marque-700: var(--marque-700);
-  --color-marque-600: var(--marque-600);
+  --color-encre-900: var(--encre-900);
+  --color-encre-800: var(--encre-800);
+  --color-encre-700: var(--encre-700);
+  --color-encre-500: var(--encre-500);
+  --color-encre-300: var(--encre-300);
   --color-accent-800: var(--accent-800);
   --color-accent-700: var(--accent-700);
   --color-accent-600: var(--accent-600);
   --color-accent-500: var(--accent-500);
   --color-accent-300: var(--accent-300);
   --color-accent-100: var(--accent-100);
-  --color-clair: var(--clair);
-  --color-gris: var(--gris);
-  --color-gris-2: var(--gris-2);
+  --color-blanc: var(--blanc);
+  --color-ivoire: var(--ivoire);
+  --color-ivoire-2: var(--ivoire-2);
+  --color-trait: var(--trait);
+  --color-trait-fort: var(--trait-fort);
   --color-texte: var(--texte);
   --color-texte-doux: var(--texte-doux);
-  --color-bordure: var(--bordure);
 
   --font-sans: var(--font-archivo);
-  --font-display: var(--font-archivo);
+  --font-titre: var(--font-instrument);
 }
 
 body {
   background: var(--page);
   color: var(--texte);
+  font-feature-settings: "kern";
 }
 
-/* Les titres reprennent la graisse et le resserrement du logo. */
-h1, h2, h3 {
-  font-weight: 800;
-  letter-spacing: -0.025em;
+/**
+ * Les titres portent le registre haut de gamme : sérif à contraste, graisse
+ * normale, grandes tailles. C'est l'écart avec le logo — seule chose en
+ * graisse noire de la page — qui fait ressortir la marque.
+ */
+h1, h2 {
+  font-family: var(--font-titre), "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.08;
 }
+
+h3 {
+  letter-spacing: -0.012em;
+}
+
+/* Un texte long ne doit pas dépasser la mesure confortable de lecture. */
+.mesure { max-width: 34rem; }
 
 /* Les ancres internes ne doivent pas se retrouver sous l'en-tête collant. */
-[id] {
-  scroll-margin-top: 6rem;
-}
+[id] { scroll-margin-top: 7rem; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

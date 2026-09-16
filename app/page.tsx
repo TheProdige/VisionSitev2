@@ -3,7 +3,14 @@ import type { Metadata } from 'next'
 import { preuves, site, telHref } from '@/content/site'
 import { services } from '@/content/services'
 import { Eclair } from '@/components/logo'
-import { Bouton, Conteneur, Section, TitreSection } from '@/components/ui'
+import {
+  Bouton,
+  Conteneur,
+  LienDiscret,
+  Section,
+  Surtitre,
+  TitreSection,
+} from '@/components/ui'
 
 export const metadata: Metadata = {
   title: `${site.nom} — Maître électricien`,
@@ -16,7 +23,7 @@ export default function Accueil() {
     <>
       <Hero />
       <Services />
-      <Pourquoi />
+      <Methode />
       <Territoire />
       <AppelFinal />
       <DonneesStructurees />
@@ -26,56 +33,64 @@ export default function Accueil() {
 
 function Hero() {
   return (
-    <div className="relative overflow-hidden bg-marque-800 text-clair">
-      {/* Le sceau, agrandi et discret, sert de texture de fond : le site n'a
-          pas encore de photos de chantier, l'identité doit porter seule. */}
-      <Eclair className="pointer-events-none absolute -right-20 -top-24 h-[42rem] w-auto text-clair opacity-[0.055] sm:-right-4" />
+    <div className="relative overflow-hidden bg-blanc">
+      {/* L'éclair, très pâle et très grand : une texture, pas un logo posé.
+          Le site n'a pas encore de photos de chantier — l'identité porte seule,
+          mais elle ne doit pas crier. */}
+      <Eclair className="pointer-events-none absolute -right-28 -top-24 h-[46rem] w-auto text-accent-500 opacity-[0.07] sm:-right-16" />
 
-      <Conteneur className="relative py-20 sm:py-28">
+      <Conteneur className="relative pt-20 pb-24 sm:pt-28 sm:pb-32">
         <div className="max-w-3xl">
-          <p className="inline-flex items-center gap-2 rounded-full border border-clair/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-accent-300">
-            Maître électricien · RBQ {site.licences.rbq}
-          </p>
+          <Surtitre>Maître électricien · RBQ {site.licences.rbq}</Surtitre>
 
-          <h1 className="mt-7 text-4xl font-semibold leading-[1.1] sm:text-6xl">
+          <h1 className="mt-8 text-[2.9rem] leading-[1.04] sm:text-[4.3rem]" style={{ textWrap: 'balance' }}>
             Le courant, fait dans les règles.
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-clair/75">
+          <p className="mesure mt-8 text-[1.13rem] leading-[1.75] text-texte-doux">
             Installation, rénovation, mise aux normes et bornes de recharge, à
             Drummondville et dans le Centre-du-Québec — pour la maison comme
             pour le commerce. Et quand ça lâche à 3 h du matin, quelqu’un
             décroche.
           </p>
 
-          <div className="mt-10 flex flex-wrap gap-3">
-            <Bouton href="/soumission" variante="accent">
-              Demander une soumission
-            </Bouton>
-            <Bouton
+          <div className="mt-11 flex flex-wrap items-center gap-x-8 gap-y-4">
+            <Bouton href="/soumission">Demander une soumission</Bouton>
+            <a
               href={telHref}
-              variante="contourSombre"
+              className="font-titre text-[1.6rem] text-encre-800 underline-offset-[7px] hover:underline"
             >
-              Appeler {site.contact.telephoneAffiche}
-            </Bouton>
+              {site.contact.telephoneAffiche}
+            </a>
           </div>
-
-          <dl className="mt-14 flex max-w-lg flex-wrap gap-x-12 gap-y-6 border-t border-clair/15 pt-8">
-            {preuves.map((p) => (
-              <div key={p.libelle}>
-                <dt className="sr-only">{p.libelle}</dt>
-                <dd>
-                  <span className="block font-display text-2xl font-bold text-accent-300 sm:text-3xl">
-                    {p.valeur}
-                  </span>
-                  <span className="mt-1 block text-sm text-clair/65">
-                    {p.libelle}
-                  </span>
-                </dd>
-              </div>
-            ))}
-          </dl>
         </div>
+
+        <dl className="mt-20 grid gap-px border-t border-trait bg-trait sm:grid-cols-3">
+          {preuves.map((p) => (
+            <div key={p.libelle} className="bg-blanc pt-7">
+              <dt className="sr-only">{p.libelle}</dt>
+              <dd>
+                <span className="block font-titre text-[2.3rem] leading-none text-encre-800">
+                  {p.valeur}
+                </span>
+                <span className="mt-3 block text-[0.9rem] text-texte-doux">
+                  {p.libelle}
+                </span>
+              </dd>
+            </div>
+          ))}
+          <div className="bg-blanc pt-7">
+            <dt className="sr-only">Territoire</dt>
+            <dd>
+              <span className="block font-titre text-[2.3rem] leading-none text-encre-800">
+                {site.contact.adresse.ville}
+              </span>
+              <span className="mt-3 block text-[0.9rem] text-texte-doux">
+                et le Centre-du-Québec
+              </span>
+            </dd>
+          </div>
+        </dl>
       </Conteneur>
     </div>
   )
@@ -83,32 +98,36 @@ function Hero() {
 
 function Services() {
   return (
-    <Section id="services">
+    <Section id="services" fond="ivoire">
       <TitreSection
         surtitre="Ce qu’on fait"
         titre="Un seul électricien, du panneau à la borne."
         intro="Résidentiel et commercial. Chaque intervention est déclarée, garantie et faite selon le Code de construction du Québec."
       />
 
-      <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="mt-16 grid gap-px border border-trait bg-trait sm:grid-cols-2 lg:grid-cols-3">
         {services.map((s) => (
-          <li key={s.slug}>
+          <li key={s.slug} className="bg-blanc">
             <Link
               href={`/services/${s.slug}`}
-              className="group flex h-full flex-col rounded-2xl border border-bordure bg-white p-7 transition hover:border-accent-500 hover:shadow-[0_2px_24px_-8px_rgba(16,35,59,0.25)]"
+              className="group relative flex h-full flex-col p-9 transition-colors hover:bg-ivoire"
             >
-              <div className="flex items-start justify-between gap-3">
-                <h3 className="text-xl font-semibold">{s.titre}</h3>
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-0 top-0 h-px scale-x-0 bg-accent-500 transition-transform duration-300 group-hover:scale-x-100"
+              />
+              <div className="flex items-start justify-between gap-4">
+                <h3 className="text-[1.12rem] font-medium leading-snug">{s.titre}</h3>
                 {s.urgence && (
-                  <span className="mt-1 shrink-0 rounded-full bg-accent-100 px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-accent-700">
+                  <span className="mt-0.5 shrink-0 text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-accent-700">
                     24/7
                   </span>
                 )}
               </div>
-              <p className="mt-3 flex-1 text-[0.95rem] leading-relaxed text-texte-doux">
+              <p className="mt-4 flex-1 text-[0.95rem] leading-[1.7] text-texte-doux">
                 {s.resume}
               </p>
-              <span className="mt-6 text-sm font-semibold text-accent-700 group-hover:underline">
+              <span className="mt-8 text-[0.85rem] font-medium text-accent-700 underline-offset-4 group-hover:underline">
                 En savoir plus →
               </span>
             </Link>
@@ -119,7 +138,7 @@ function Services() {
   )
 }
 
-const ARGUMENTS = [
+const ENGAGEMENTS = [
   {
     titre: 'Licencié et assuré',
     texte:
@@ -142,28 +161,24 @@ const ARGUMENTS = [
   },
 ]
 
-function Pourquoi() {
+function Methode() {
   return (
-    <Section fond="gris">
-      <TitreSection
-        surtitre="Pourquoi nous"
-        titre="Ce qui change quand c’est bien fait."
-      />
-      <div className="mt-12 grid gap-10 sm:grid-cols-2">
-        {ARGUMENTS.map((a, i) => (
-          <div key={a.titre} className="flex gap-5">
-            <span
-              aria-hidden="true"
-              className="mt-1 font-display text-2xl font-bold text-accent-500/45"
-            >
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <div>
-              <h3 className="text-lg font-semibold">{a.titre}</h3>
-              <p className="mt-2.5 leading-relaxed text-texte-doux">{a.texte}</p>
-            </div>
-          </div>
-        ))}
+    <Section>
+      <div className="grid gap-16 lg:grid-cols-[minmax(0,26rem)_1fr] lg:gap-24">
+        <TitreSection
+          surtitre="Notre façon de faire"
+          titre="Ce qui change quand c’est bien fait."
+        />
+        <ul className="grid gap-x-14 gap-y-10 sm:grid-cols-2">
+          {ENGAGEMENTS.map((e) => (
+            <li key={e.titre} className="border-t border-trait pt-6">
+              <h3 className="text-[1.05rem] font-medium">{e.titre}</h3>
+              <p className="mt-3 text-[0.95rem] leading-[1.7] text-texte-doux">
+                {e.texte}
+              </p>
+            </li>
+          ))}
+        </ul>
       </div>
     </Section>
   )
@@ -171,19 +186,16 @@ function Pourquoi() {
 
 function Territoire() {
   return (
-    <Section>
-      <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+    <Section fond="ivoire">
+      <div className="grid gap-14 lg:grid-cols-[minmax(0,26rem)_1fr] lg:gap-24">
         <TitreSection
           surtitre="Territoire desservi"
           titre="On se déplace chez vous."
-          intro={`Basé à ${site.contact.adresse.ville}, ${site.contact.adresse.province}. Si votre ville n’est pas dans la liste, appelez quand même — c’est souvent possible.`}
+          intro={`Basé à ${site.contact.adresse.ville}. Si votre ville n’est pas dans la liste, appelez quand même — c’est souvent possible.`}
         />
-        <ul className="flex flex-wrap gap-2.5">
+        <ul className="grid grid-cols-2 gap-x-10 text-[1.02rem] sm:grid-cols-3">
           {site.zones.map((z) => (
-            <li
-              key={z}
-              className="rounded-full border border-bordure bg-gris px-4 py-2 text-sm font-medium"
-            >
+            <li key={z} className="border-b border-trait py-4 text-texte">
               {z}
             </li>
           ))}
@@ -195,23 +207,18 @@ function Territoire() {
 
 function AppelFinal() {
   return (
-    <Section fond="sombre">
-      <div className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
-        <TitreSection
-          surSombre
-          titre="Un projet, ou juste une question ?"
-          intro="La soumission est gratuite et sans engagement. Répondez à quelques questions et on vous revient rapidement."
-        />
-        <div className="flex shrink-0 flex-wrap gap-3">
-          <Bouton href="/soumission" variante="accent">
-            Demander une soumission
-          </Bouton>
-          <Bouton
-            href={telHref}
-            variante="contourSombre"
-          >
-            {site.contact.telephoneAffiche}
-          </Bouton>
+    <Section>
+      <div className="mx-auto max-w-2xl text-center">
+        <h2 className="text-[2.1rem] leading-[1.1] sm:text-[2.9rem]" style={{ textWrap: 'balance' }}>
+          Un projet, ou juste une question ?
+        </h2>
+        <p className="mx-auto mt-6 max-w-lg text-[1.06rem] leading-[1.75] text-texte-doux">
+          La soumission est gratuite et sans engagement. Répondez à quelques
+          questions et on vous revient rapidement.
+        </p>
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+          <Bouton href="/soumission">Demander une soumission</Bouton>
+          <LienDiscret href="/contact">Voir toutes les façons de nous joindre</LienDiscret>
         </div>
       </div>
     </Section>

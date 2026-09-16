@@ -9,12 +9,16 @@ export function Conteneur({
   className?: string
 }) {
   return (
-    <div className={`mx-auto w-full max-w-6xl px-4 ${className ?? ''}`}>
+    <div className={`mx-auto w-full max-w-[74rem] px-6 sm:px-8 ${className ?? ''}`}>
       {children}
     </div>
   )
 }
 
+/**
+ * Les sections respirent : c'est l'espace, plus que les couleurs, qui porte le
+ * registre haut de gamme. L'ivoire sert à séparer sans poser de bloc gris.
+ */
 export function Section({
   children,
   className,
@@ -23,22 +27,47 @@ export function Section({
 }: {
   children: ReactNode
   className?: string
-  fond?: 'blanc' | 'gris' | 'sombre'
+  fond?: 'blanc' | 'ivoire' | 'encre'
   id?: string
 }) {
   const fonds = {
-    blanc: 'bg-white',
-    gris: 'bg-gris',
-    sombre: 'bg-marque-800 text-clair',
+    blanc: 'bg-blanc',
+    ivoire: 'bg-ivoire',
+    encre: 'bg-encre-900 text-blanc',
   } as const
+
   return (
-    <section id={id} className={`${fonds[fond]} py-20 sm:py-24 ${className ?? ''}`}>
+    <section
+      id={id}
+      className={`${fonds[fond]} py-24 sm:py-32 ${className ?? ''}`}
+    >
       <Conteneur>{children}</Conteneur>
     </section>
   )
 }
 
-/** Surtitre + titre. Le surtitre porte le mot-clé, le titre porte la promesse. */
+/** Surtitre : un filet ambre court, puis le mot-clé en petites capitales. */
+export function Surtitre({
+  children,
+  surSombre = false,
+}: {
+  children: ReactNode
+  surSombre?: boolean
+}) {
+  return (
+    <p className="flex items-center gap-3">
+      <span aria-hidden="true" className="h-px w-7 shrink-0 bg-accent-500" />
+      <span
+        className={`text-[0.68rem] font-semibold uppercase tracking-[0.22em] ${
+          surSombre ? 'text-accent-300' : 'text-accent-700'
+        }`}
+      >
+        {children}
+      </span>
+    </p>
+  )
+}
+
 export function TitreSection({
   surtitre,
   titre,
@@ -52,20 +81,19 @@ export function TitreSection({
 }) {
   return (
     <div className="max-w-2xl">
-      {surtitre && (
-        <p
-          className={`text-xs font-semibold uppercase tracking-[0.22em] ${
-            surSombre ? 'text-accent-300' : 'text-accent-700'
-          }`}
-        >
-          {surtitre}
-        </p>
-      )}
-      <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">{titre}</h2>
+      {surtitre && <Surtitre surSombre={surSombre}>{surtitre}</Surtitre>}
+      <h2
+        className={`mt-6 text-[2.1rem] leading-[1.1] sm:text-[2.9rem] ${
+          surSombre ? 'text-blanc' : ''
+        }`}
+        style={{ textWrap: 'balance' }}
+      >
+        {titre}
+      </h2>
       {intro && (
         <p
-          className={`mt-5 text-lg leading-relaxed ${
-            surSombre ? 'text-clair/75' : 'text-texte-doux'
+          className={`mt-6 text-[1.06rem] leading-[1.75] ${
+            surSombre ? 'text-blanc/65' : 'text-texte-doux'
           }`}
         >
           {intro}
@@ -75,33 +103,32 @@ export function TitreSection({
   )
 }
 
-type BoutonProps = {
-  href: string
-  children: ReactNode
-  variante?: 'plein' | 'contour' | 'contourSombre' | 'accent'
-  className?: string
+type Variante = 'principal' | 'contour' | 'contourSombre' | 'accent'
+
+const STYLES: Record<Variante, string> = {
+  principal: 'bg-encre-800 text-blanc hover:bg-encre-700',
+  contour:
+    'border border-trait-fort text-encre-800 hover:border-encre-800 hover:bg-ivoire',
+  // Variante à part entière, pas un override de `contour` : deux utilitaires de
+  // couleur sur le même élément se départagent par l'ordre de la feuille de
+  // style, pas par celui de la chaîne — l'override sortait en encre sur encre.
+  contourSombre: 'border border-blanc/25 text-blanc hover:border-blanc hover:bg-blanc/10',
+  // L'ambre ne porte jamais de blanc : l'encre s'y pose à 10,93:1.
+  accent: 'bg-accent-500 text-encre-900 hover:bg-accent-300',
 }
 
 export function Bouton({
   href,
   children,
-  variante = 'plein',
+  variante = 'principal',
   className,
-}: BoutonProps) {
-  const styles = {
-    plein: 'bg-marque-800 text-clair hover:bg-marque-700',
-    contour:
-      'border border-marque-800/25 text-marque-800 hover:border-marque-800 hover:bg-marque-800/5',
-    // Variante à part entière plutôt qu'un override de `contour` : deux
-    // utilitaires de couleur sur le même élément se départagent par l'ordre
-    // de la feuille de style, pas par l'ordre de la chaîne — l'override
-    // rendait le bouton en encre sur fond encre, donc invisible.
-    contourSombre:
-      'border border-clair/30 text-clair hover:border-clair hover:bg-clair/10',
-    accent: 'bg-accent-500 text-marque-800 hover:bg-accent-300',
-  } as const
-
-  const classes = `inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition ${styles[variante]} ${className ?? ''}`
+}: {
+  href: string
+  children: ReactNode
+  variante?: Variante
+  className?: string
+}) {
+  const classes = `inline-flex items-center justify-center rounded-full px-7 py-3.5 text-[0.9rem] font-medium transition-colors duration-200 ${STYLES[variante]} ${className ?? ''}`
 
   // Les liens `tel:` et `mailto:` ne passent pas par le routeur.
   if (href.startsWith('tel:') || href.startsWith('mailto:')) {
@@ -114,6 +141,29 @@ export function Bouton({
   return (
     <Link href={href} className={classes}>
       {children}
+    </Link>
+  )
+}
+
+/** Lien discret souligné — la troisième action, celle qu'on ne met pas en bouton. */
+export function LienDiscret({
+  href,
+  children,
+  surSombre = false,
+}: {
+  href: string
+  children: ReactNode
+  surSombre?: boolean
+}) {
+  return (
+    <Link
+      href={href}
+      className={`inline-flex items-center gap-2 text-[0.9rem] font-medium underline-offset-[6px] hover:underline ${
+        surSombre ? 'text-accent-300' : 'text-accent-700'
+      }`}
+    >
+      {children}
+      <span aria-hidden="true">→</span>
     </Link>
   )
 }

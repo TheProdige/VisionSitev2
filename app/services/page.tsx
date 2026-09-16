@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function PageServices() {
   return (
     <>
-      <div className="border-b border-bordure bg-gris">
+      <div className="border-b border-trait bg-ivoire">
         <Conteneur className="py-16 sm:py-20">
           <TitreSection
             surtitre="Services"
@@ -29,11 +29,11 @@ export default function PageServices() {
           {services.map((s) => (
             <li
               key={s.slug}
-              className="flex flex-col rounded-2xl border border-bordure p-8"
+              className="flex flex-col rounded-none border border-trait p-8"
             >
               <div className="flex items-start justify-between gap-4">
-                <h2 className="text-2xl font-semibold">{s.titre}</h2>
-                <span className="mt-1.5 shrink-0 rounded-full bg-gris px-3 py-1 text-xs font-semibold text-texte-doux">
+                <h2 className="text-2xl font-medium">{s.titre}</h2>
+                <span className="mt-1.5 shrink-0 rounded-full bg-ivoire px-3 py-1 text-xs font-semibold text-texte-doux">
                   {s.clientele}
                 </span>
               </div>
@@ -60,13 +60,13 @@ export default function PageServices() {
         </ul>
       </Section>
 
-      <Section fond="sombre" className="!py-16">
+      <Section fond="ivoire" className="!py-16">
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
-          <p className="max-w-lg text-lg text-clair/80">
+          <p className="max-w-lg text-lg text-blanc/80">
             Vous ne trouvez pas votre besoin dans la liste ? Décrivez-le, on
             vous dira honnêtement si c’est dans nos cordes.
           </p>
-          <Bouton href="/soumission" variante="accent">
+          <Bouton href="/soumission" variante="principal">
             Décrire mon projet
           </Bouton>
         </div>
