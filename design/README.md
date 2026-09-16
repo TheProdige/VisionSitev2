@@ -120,3 +120,28 @@ Les scènes sont générées (Higgsfield, `gpt_image_2_5`), volontairement sans
 marque ni texte sur les caisses. Pour passer aux photos réelles : deux prises
 du Transit portes ouvertes, une cadrée large et une verticale, sur trépied,
 à l'heure bleue avec les LED allumées. Puis réencoder et relever les zones.
+
+## Scène 3D du fourgon (Blender → navigateur)
+
+`design/transit3d.html` — vraie scène 3D : on tourne autour du fourgon, chaque
+caisse rouge ouvre une section. Three.js r147, modèle embarqué en base64 dans
+la page (l'extension `.glb` n'est pas servie comme fichier joint d'artefact).
+
+Le modèle est construit dans Blender via l'outillage 3D de Higgsfield, projet
+`501b9e74-ca0c-4c1d-8a6a-5a52da3e72d2` : habitacle, rack trois travées, six
+niveaux, dix-huit caisses partageant un seul maillage. Les neuf caisses de
+navigation portent le nom `Caisse_<clé>` ; c'est par ce nom que le navigateur
+les retrouve. Source du GLB dans `design/scene3d/`.
+
+> Une caisse a deux matériaux, donc deux primitives : glTF en fait un **groupe**
+> nommé contenant des `Mesh` anonymes. Filtrer les cibles sur `isMesh` ne
+> trouve rien — il faut viser le nœud nommé et remonter depuis le sous-maillage
+> touché.
+
+> `RoomEnvironment` est une pièce éclairée : à pleine intensité elle crame
+> l'habitacle. `envMapIntensity` est réduit à 0,16 et l'exposition à 0,78.
+
+**Ce que la scène n'est pas :** photoréaliste. C'est un rendu 3D propre et
+net, sans texture ni usure. Y arriver demanderait des textures PBR, de la
+géométrie de détail et beaucoup d'itération — ou, bien plus court, des photos
+du vrai camion.
