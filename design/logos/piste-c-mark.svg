@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" role="img" aria-label="Lussier Électrique">
+  
+  <rect width="96" height="96" rx="24" fill="#16181D"/>
+  <!-- Un seul tracé : le fût du L est lui-même l'éclair (décrochement à
+       mi-hauteur), le pied reste horizontal. La lettre et le symbole sont
+       la même forme, pas deux objets posés l'un à côté de l'autre. -->
+  <path d="M 30.5 18 L 48.5 18 L 39.5 44 L 49.5 44 L 42.5 60 L 75.5 60 L 75.5 78 L 22.5 78 L 30.5 44 L 20.5 44 Z" fill="#22D3EE"/>
+</svg>
