@@ -44,3 +44,7 @@ next-env.d.ts
 
 # Captures de revue : régénérables via `node design/capture.mjs`
 /design/captures/
+
+# Aperçu généré : `EXPORT_STATIQUE=1 npx next build && node design/apercu-artefact.mjs`
+/design/apercu-site.html
+/out/

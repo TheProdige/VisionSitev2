@@ -1,7 +1,8 @@
 'use client'
 
 import { useActionState } from 'react'
-import { envoyerDemande, type EtatFormulaire } from './actions'
+import { envoyerDemande } from './actions'
+import type { EtatFormulaire } from './validation'
 import { services } from '@/content/services'
 import { site, telHref } from '@/content/site'
 

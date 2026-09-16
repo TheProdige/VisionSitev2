@@ -62,3 +62,26 @@ Parcourt les cinq chemins du formulaire de soumission dans un vrai navigateur.
 Chacun correspond à une façon concrète de perdre un client : validation muette,
 saisie effacée entre deux tentatives, faux succès alors que rien n'est envoyé,
 pourriel. Le script s'adapte selon que `RESEND_API_KEY` est défini ou non.
+
+## Aperçu partageable
+
+```sh
+EXPORT_STATIQUE=1 npx next build
+node design/apercu-artefact.mjs
+```
+
+Produit `design/apercu-site.html` : le site complet en **un seul fichier
+autonome**, publiable tel quel comme artefact ou envoyable par courriel.
+
+Le HTML de chaque page vient de l'export réel (`out/`), pas d'une
+reconstruction à la main — l'aperçu ne peut donc pas diverger du site. Le
+script inline la feuille de style et les polices, remplace les liens absolus
+par une navigation locale, reconstruit le menu mobile (rendu par React dans le
+vrai site, donc absent du HTML statique) et neutralise le formulaire, qui n'a
+pas de serveur dans un export statique.
+
+> Le mode `EXPORT_STATIQUE=1` résout `./actions` vers `actions.statique.ts`,
+> qui valide avec les mêmes règles que la fonction serveur — module partagé,
+> `app/soumission/validation.ts` — puis renvoie vers le téléphone. Ce mode
+> n'est pas destiné à la mise en ligne : le vrai site a besoin d'un serveur
+> pour recevoir les demandes.
