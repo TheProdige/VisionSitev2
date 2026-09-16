@@ -78,7 +78,13 @@ body {
  * graisse noire de la page — qui fait ressortir la marque.
  */
 h1, h2 {
-  font-family: var(--font-titre), "Times New Roman", serif;
+  /* On vise `--font-instrument` directement, pas `--font-titre`.
+     Une variable imbriquée se résout sur l'élément qui la DÉCLARE : déclaré
+     sur `:root`, `--font-titre` ne voit `--font-instrument` que si la classe
+     de `next/font` est elle aussi sur `:root`. Dès qu'elle est ailleurs — un
+     aperçu, une intégration — la déclaration devient invalide et les titres
+     retombent silencieusement sur la police du corps. */
+  font-family: var(--font-instrument), "Times New Roman", serif;
   font-weight: 400;
   letter-spacing: -0.015em;
   line-height: 1.08;

@@ -10,7 +10,7 @@
  * navigation locale, et le formulaire — qui n'a pas de serveur ici — le dit.
  */
 import { chromium } from 'playwright'
-import { readFileSync, writeFileSync } from 'node:fs'
+import { readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 
 const RACINE = resolve(import.meta.dirname, '..')
@@ -32,10 +32,16 @@ const ROUTES = [
 
 /* ------------------------------------------------- feuille de style + polices */
 
-const cssSrc = readFileSync(
-  join(OUT, '_next/static/chunks/31yp6ucmr46pz.css'),
-  'utf8'
-)
+// Le nom des fichiers CSS est haché sur le contenu : il change à chaque build.
+// On les découvre plutôt que de les figer, et on les concatène — il peut y en
+// avoir plusieurs.
+const dossierChunks = join(OUT, '_next/static/chunks')
+const feuilles = readdirSync(dossierChunks).filter((f) => f.endsWith('.css'))
+if (feuilles.length === 0) throw new Error(`aucune feuille de style dans ${dossierChunks}`)
+console.log(`feuilles de style : ${feuilles.join(', ')}`)
+const cssSrc = feuilles
+  .map((f) => readFileSync(join(dossierChunks, f), 'utf8'))
+  .join('\n')
 
 // Les polices sont référencées en chemin absolu, qui ne résoudra pas depuis
 // une URL d'artefact : on les embarque.
