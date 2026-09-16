@@ -32,6 +32,8 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# Le gabarit, lui, doit être versionné : c'est la doc des variables requises.
+!.env.example
 
 # vercel
 .vercel
@@ -39,3 +41,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Captures de revue : régénérables via `node design/capture.mjs`
+/design/captures/
+
+# Aperçu généré : `EXPORT_STATIQUE=1 npx next build && node design/apercu-artefact.mjs`
+/design/apercu-site.html
+/out/
+
+# Rushes du héro : 45 Mo de sources générées, régénérables et remplaçables.
+# Seuls les plans compressés par scripts/encode-hero-video.mjs sont suivis.
+prototypes/videos/source/

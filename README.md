@@ -1,68 +1,58 @@
-# Vision Lavage — site web
+# Lussier Électrique
 
-Site vitrine de **Vision Lavage** (lavage de vitres et lavage à pression), orienté
-génération de demandes de soumission. Direction visuelle : côtière « Outer Banks / Pogue »
-(Westfalia turquoise, golden hour, tons sable).
+Site vitrine de **Lussier Électrique**, maître électricien à Drummondville.
+Résidentiel, commercial, urgence 24/7.
 
-## Stack
+Le parti pris tient en une phrase : **le site est porté par la photographie**.
+Une seule série d'images, la même lumière et la même palette sur toutes ;
+une seule famille de titres ; beaucoup de vide ; et pas un effet de plus que
+nécessaire. C'est la retenue qui fait le haut de gamme, pas l'accumulation.
 
-- **Next.js 16** (App Router, TypeScript)
-- **Tailwind CSS v4** — système de design dans `src/app/globals.css`
-- **React Hook Form + Zod** — formulaire de soumission validé
-- **Resend** — envoi des soumissions par courriel
-- **lucide-react** — icônes
+## Lancer
 
-## Démarrer
-
-```bash
-npm install
-cp .env.example .env.local   # puis remplir RESEND_API_KEY
-npm run dev
+```sh
+npm run dev          # sert site/ sur http://localhost:8000
 ```
 
-Ouvrir http://localhost:3000
-
-## Configuration
-
-Toute l'information de l'entreprise est centralisée dans **`src/lib/site.ts`**
-(nom, téléphone, courriel, services, secteurs desservis, navigation). C'est le
-premier fichier à ajuster.
-
-⚠️ **À remplacer avant la mise en ligne :**
-- Le numéro de téléphone `phoneDisplay` / `phoneHref` (placeholder `819 000-0000`).
-- Le domaine `url` si différent de `visionlavage.ca`.
-
-## Envoi des soumissions (Resend)
-
-Les demandes du formulaire sont envoyées à `visionlavage@gmail.com` via Resend.
-
-1. Créer un compte sur [resend.com](https://resend.com).
-2. Générer une clé API et la mettre dans `RESEND_API_KEY`.
-3. (Production) Vérifier un domaine d'envoi et ajuster `SOUMISSION_FROM`.
-
-Sans `RESEND_API_KEY`, le site fonctionne quand même : les demandes sont
-journalisées côté serveur (console) et l'utilisateur reçoit une confirmation,
-mais aucun courriel n'est envoyé. Pratique en développement.
+Aucune compilation : `site/index.html` est du HTML, du CSS et une trentaine
+de lignes de JavaScript. Il s'ouvre aussi par un double-clic.
 
 ## Structure
 
 ```
-src/
-  app/
-    page.tsx                 # Accueil
-    soumission/              # Formulaire de soumission
-    services/[slug]/         # Pages services (vitres, pression)
-    secteurs/                # Liste + pages par ville (SEO local)
-    a-propos/  contact/
-    api/soumission/route.ts  # Envoi courriel (Resend)
-    sitemap.ts  robots.ts
-  components/                # Header, footer, hero, formulaire, UI…
-  lib/site.ts                # Config centrale
-public/heros/                # Visuels (fonds de héro, crew + Westfalia)
+site/
+  index.html          la page
+  images/             la série photo, en WebP et JPEG
+outils/
+  optimiser-images.mjs  redimensionne et encode la série
+  verifier.mjs          rend la page dans un vrai navigateur et relève les défauts
 ```
 
-## Visuels
+## La direction visuelle, en bref
 
-Les images de `public/heros/` ont été générées pour établir la direction
-artistique. À remplacer par de vraies photos de réalisations (avant/après)
-quand elles seront disponibles.
+| | |
+| --- | --- |
+| **Titres** | Fraunces, graisse 300, `SOFT 20` — un sérif à optique variable, italique pour la seconde ligne du héro |
+| **Texte** | Instrument Sans, 400 et 500 |
+| **Neutres** | `#17150f` encre chaude · `#f7f4ee` crème · `#eae5dc` pierre · `#ddd6c9` filets |
+| **Accent** | `#a8813f` laiton. L'ambre `#ffb524` du logo ne reste que dans l'éclair — à pleine saturation il tire le site vers le néon |
+
+Les couleurs sont des jetons CSS en tête de `index.html`, nommés par leur
+rôle. Changer de direction ne touche que ce bloc.
+
+## Le mouvement
+
+Deux gestes, pas trois : le texte monte de 18 px en se révélant, l'image se
+pose d'un `scale(1.06)` à `scale(1)`. Rien ne rebondit, rien ne tourne.
+
+La révélation se fait par comparaison de position à chaque image, pas par
+`IntersectionObserver` : un observateur ne rattrape pas ce qu'on a sauté, et
+une touche Fin laisserait des blocs invisibles pour de bon. Sans JavaScript,
+tout est visible d'emblée — le script ne fait qu'armer l'effet.
+
+`prefers-reduced-motion` coupe les deux gestes.
+
+## Ce qui reste à faire
+
+Tout le contenu est du placeholder. La liste complète est dans
+[`PLACEHOLDERS.md`](PLACEHOLDERS.md) — à lire avant toute mise en ligne.
