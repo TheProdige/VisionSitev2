@@ -1,4 +1,27 @@
-# Phase 1 — quatre directions visuelles
+# Prototypes
+
+## `hero.html` — le héro « la maison s'allume »
+
+Direction retenue après la référence envoyée. Fichier autonome : les trois
+textures et les zones sont embarquées en base64, donc il s'ouvre par un
+double-clic, sans serveur. Touche <kbd>D</kbd> pour le panneau de débogage
+(rejouer, curseurs, affichage des zones, bascule entre les trois titres).
+
+Ce que fait le shader, et pourquoi : l'état éteint n'est pas une deuxième
+image, il est calculé. La photo est assombrie, désaturée et tirée vers le
+bleu nuit ; les pixels du masque de lumière tombent en plus à 10 % de ça,
+parce qu'une fenêtre éteinte la nuit est noire et pas grise ; le ciel, lui,
+n'est presque pas touché, puisqu'à l'heure bleue il éclaire tout seul.
+Chaque zone a sa propre intensité, ce qui permet d'allumer l'allée, puis les
+soffites, puis les fenêtres une pièce à la fois.
+
+Assets et outils : `scripts/generate-depth.py` (Depth-Anything V2 Small),
+`scripts/generate-lightmask.py`, `scripts/optimize-hero.mjs`,
+`scripts/zone-editor.html` pour corriger les polygones à la main.
+
+---
+
+# Les quatre directions précédentes
 
 Quatre pages d'accueil complètes, chacune dans un fichier HTML autonome : on
 ouvre le fichier dans un navigateur, rien à installer. Même contenu, même
