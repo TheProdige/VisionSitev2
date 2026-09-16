@@ -54,7 +54,7 @@ export async function envoyerDemande(
   // mise en forme, le but est d'attraper les fautes de frappe.
   const chiffres = demande.telephone.replace(/\D/g, '')
   if (chiffres.length < 10 || chiffres.length > 11) {
-    champs.telephone = 'Numéro à 10 chiffres, par exemple 450 555-1234.'
+    champs.telephone = 'Numéro à 10 chiffres, par exemple 819 555-1234.'
   }
 
   if (demande.courriel && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(demande.courriel)) {

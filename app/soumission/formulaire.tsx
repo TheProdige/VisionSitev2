@@ -68,7 +68,7 @@ export function Formulaire() {
             type="tel"
             inputMode="tel"
             autoComplete="tel"
-            placeholder="450 555-1234"
+            placeholder="819 555-1234"
             className={`${champBase} ${err.telephone ? 'border-red-400' : 'border-bordure'}`}
           />
         </Champ>

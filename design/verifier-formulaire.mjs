@@ -64,7 +64,7 @@ console.log('3. saisie conservée après refus')
 
 // 4. Sans fournisseur d'envoi configuré, le site doit le dire au visiteur
 //    plutôt que d'afficher un succès et de perdre la demande.
-await page.fill('#telephone', '450 555-1234')
+await page.fill('#telephone', '819 555-1234')
 await envoyer()
 await page.waitForTimeout(2500)
 const texte = await alerte.textContent().catch(() => null)
