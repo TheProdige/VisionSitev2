@@ -1,26 +1,84 @@
 @import "tailwindcss";
 
+/**
+ * Jetons de design — piste A « L'accent éclair » : encre + ambre.
+ *
+ * Les noms sont volontairement sémantiques (`marque`, `accent`, `clair`) et
+ * non descriptifs : changer de direction visuelle ne doit toucher que les
+ * valeurs de ce bloc, jamais les composants.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Encre — la couleur de marque */
+  --marque-900: #06080c;
+  --marque-800: #0b0e14;
+  --marque-700: #161b24;
+  --marque-600: #252d3b;
+
+  /* Ambre — l'accent.
+     Les teintes 800 à 600 existent uniquement pour le TEXTE : l'ambre de
+     marque (#FFB524) tombe sous 3:1 sur blanc et ne peut pas porter de mot.
+     Il sert aux aplats, où l'encre se pose dessus avec un contraste massif. */
+  --accent-800: #6b4500;
+  --accent-700: #8a5a00;
+  --accent-600: #a66d00;
+  --accent-500: #ffb524;
+  --accent-300: #ffd180;
+  --accent-100: #fff2dc;
+
+  /* Neutres froids */
+  --clair: #ffffff;
+  --gris: #f4f6f9;
+  --gris-2: #e9edf2;
+
+  --texte: #0b0e14;
+  --texte-doux: #525d6e;
+  --bordure: #e2e6ec;
+
+  --page: var(--clair);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-marque-900: var(--marque-900);
+  --color-marque-800: var(--marque-800);
+  --color-marque-700: var(--marque-700);
+  --color-marque-600: var(--marque-600);
+  --color-accent-800: var(--accent-800);
+  --color-accent-700: var(--accent-700);
+  --color-accent-600: var(--accent-600);
+  --color-accent-500: var(--accent-500);
+  --color-accent-300: var(--accent-300);
+  --color-accent-100: var(--accent-100);
+  --color-clair: var(--clair);
+  --color-gris: var(--gris);
+  --color-gris-2: var(--gris-2);
+  --color-texte: var(--texte);
+  --color-texte-doux: var(--texte-doux);
+  --color-bordure: var(--bordure);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-archivo);
+  --font-display: var(--font-archivo);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--page);
+  color: var(--texte);
+}
+
+/* Les titres reprennent la graisse et le resserrement du logo. */
+h1, h2, h3 {
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+/* Les ancres internes ne doivent pas se retrouver sous l'en-tête collant. */
+[id] {
+  scroll-margin-top: 6rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

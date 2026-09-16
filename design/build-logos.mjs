@@ -208,7 +208,6 @@ function powerSeal({ cx, cy, r, gapDeg, stroke, boltFill, arcStroke }) {
  * Graphite + cyan électrique, typo Space Grotesk.
  */
 const C_GRAPHITE = '#16181D'
-const C_LIGHT = '#F4F6F8'
 const C_CYAN = '#22D3EE'
 
 {

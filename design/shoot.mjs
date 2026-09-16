@@ -1,6 +1,6 @@
 /** Planche contact des pistes de logo : lockup, marque, et test 24 px. */
 import { chromium } from 'playwright'
-import { readFileSync, readdirSync } from 'node:fs'
+import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 

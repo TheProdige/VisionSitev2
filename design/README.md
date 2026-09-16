@@ -40,3 +40,25 @@ ln -sfn "$(npm root -g)/playwright-core" node_modules/playwright-core
 > Une fois la piste retenue, la version finale devra être **vectorisée**
 > (glyphes convertis en tracés) pour l'impression et pour ne plus dépendre
 > du chargement de la police.
+
+## Revue visuelle
+
+```sh
+npx next build && npx next start -p 3210
+node design/capture.mjs              # toutes les pages, bureau + mobile
+node design/capture.mjs / /contact   # ou seulement certaines
+```
+
+Les captures atterrissent dans `design/captures/`, qui n'est pas versionné :
+ce sont des artefacts régénérables.
+
+## Vérification du formulaire
+
+```sh
+node design/verifier-formulaire.mjs
+```
+
+Parcourt les cinq chemins du formulaire de soumission dans un vrai navigateur.
+Chacun correspond à une façon concrète de perdre un client : validation muette,
+saisie effacée entre deux tentatives, faux succès alors que rien n'est envoyé,
+pourriel. Le script s'adapte selon que `RESEND_API_KEY` est défini ou non.

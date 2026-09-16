@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lussier Électrique
 
-## Getting Started
+Site vitrine de **Lussier Électrique**, entrepreneur électricien au Québec —
+résidentiel, commercial et dépannage d'urgence 24/7.
 
-First, run the development server:
+Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4. Toutes les
+pages sont prérendues statiquement.
 
-```bash
+## Démarrer
+
+```sh
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Avant la mise en ligne
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Le contenu de l'entreprise est **centralisé dans deux fichiers** : il n'y a pas
+à fouiller les composants.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Fichier | Contient |
+| --- | --- |
+| `content/site.ts` | Nom, domaine, téléphone, courriel, ville, **licence RBQ**, zones desservies, horaires |
+| `content/services.ts` | Les six services, leurs prestations et leurs questions fréquentes |
 
-## Learn More
+Les valeurs marquées `À REMPLIR` sont des placeholders. Trois d'entre elles ne
+peuvent pas partir en production telles quelles :
 
-To learn more about Next.js, take a look at the following resources:
+- **`licences.rbq`** — mention obligatoire pour un entrepreneur électricien au
+  Québec. Le numéro est publiquement vérifiable : afficher un faux numéro
+  expose à des sanctions.
+- **`contact.telephone`** — le site pousse à l'appel partout ; un mauvais
+  numéro rend le reste inutile.
+- **`url`** — sert aux balises canoniques, au sitemap et aux données
+  structurées.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Le texte de `app/a-propos/page.tsx` est également un canevas, à remplacer par
+le parcours réel de l'entreprise.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Réception des demandes de soumission
 
-## Deploy on Vercel
+Le formulaire n'envoie rien tant qu'un fournisseur de courriel n'est pas
+configuré — et il le dit au visiteur plutôt que d'afficher un faux succès.
+Copier `.env.example` vers `.env.local` et renseigner :
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+RESEND_API_KEY=
+COURRIEL_DESTINATAIRE=
+COURRIEL_EXPEDITEUR=
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Pour un autre fournisseur, seule `lib/livraison.ts` est à réécrire.
+
+## Identité visuelle
+
+Piste retenue : **A — « L'accent éclair »**, où le « I » de LUSSIER devient un
+éclair. Encre `#0B0E14`, ambre `#FFB524`, typographie Archivo.
+
+Les couleurs et la typo passent toutes par les jetons de `app/globals.css`.
+Ils sont nommés par leur rôle (`marque`, `accent`, `clair`) et non par leur
+couleur : changer de direction visuelle ne touche que ce bloc.
+
+Les sources du logo, les deux autres pistes et l'outillage de design sont
+documentés dans [`design/README.md`](design/README.md).
+
+## Scripts
+
+| Commande | Rôle |
+| --- | --- |
+| `npm run dev` | Développement |
+| `npm run build` | Build de production |
+| `npm run lint` | ESLint |
+| `node design/capture.mjs` | Captures de revue, bureau et mobile |
+| `node design/verifier-formulaire.mjs` | Test du formulaire dans un navigateur |
+| `node design/build-logos.mjs` | Régénère les SVG des pistes de logo |
