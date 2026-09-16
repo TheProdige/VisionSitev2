@@ -7,7 +7,7 @@ import { Bouton, Conteneur, Section, TitreSection } from '@/components/ui'
 export const metadata: Metadata = {
   title: 'Services',
   description:
-    'Services d’électricité résidentielle et commerciale : panneau, borne de recharge, rénovation, mise aux normes et dépannage d’urgence 24/7.',
+    'Services d’électricité résidentielle et commerciale à Drummondville : panneau, borne de recharge, rénovation, mise aux normes et dépannage d’urgence 24/7.',
   alternates: { canonical: '/services' },
 }
 

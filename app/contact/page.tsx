@@ -4,7 +4,7 @@ import { Bouton, Conteneur, Section, TitreSection } from '@/components/ui'
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: `Joindre ${site.nom} : téléphone, courriel, heures d’ouverture et territoire desservi au Québec.`,
+  description: `Joindre ${site.nom} à Drummondville : téléphone, courriel, heures d’ouverture et territoire desservi.`,
   alternates: { canonical: '/contact' },
 }
 

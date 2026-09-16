@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { site, telHref } from '@/content/site'
+import { preuves, site, telHref } from '@/content/site'
 import { services } from '@/content/services'
 import { Eclair } from '@/components/logo'
 import { Bouton, Conteneur, Section, TitreSection } from '@/components/ui'
@@ -42,9 +42,10 @@ function Hero() {
           </h1>
 
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-clair/75">
-            Installation, rénovation, mise aux normes et bornes de recharge —
-            pour la maison comme pour le commerce. Et quand ça lâche à
-            3 h du matin, quelqu’un décroche.
+            Installation, rénovation, mise aux normes et bornes de recharge, à
+            Drummondville et dans le Centre-du-Québec — pour la maison comme
+            pour le commerce. Et quand ça lâche à 3 h du matin, quelqu’un
+            décroche.
           </p>
 
           <div className="mt-10 flex flex-wrap gap-3">
@@ -59,8 +60,8 @@ function Hero() {
             </Bouton>
           </div>
 
-          <dl className="mt-14 grid max-w-lg grid-cols-3 gap-6 border-t border-clair/15 pt-8">
-            {site.preuves.map((p) => (
+          <dl className="mt-14 flex max-w-lg flex-wrap gap-x-12 gap-y-6 border-t border-clair/15 pt-8">
+            {preuves.map((p) => (
               <div key={p.libelle}>
                 <dt className="sr-only">{p.libelle}</dt>
                 <dd>

@@ -26,8 +26,8 @@ export const services: Service[] = [
     resume:
       'Panne, odeur de brûlé, disjoncteur qui saute sans arrêt : on répond jour et nuit.',
     intro:
-      'Dépannage électrique d’urgence 24/7 au Québec. Panne, court-circuit, ' +
-      'odeur de brûlé : un maître électricien se déplace.',
+      'Dépannage électrique d’urgence 24/7 à Drummondville. Panne, ' +
+      'court-circuit, odeur de brûlé : un maître électricien se déplace.',
     prestations: [
       'Panne totale ou partielle de courant',
       'Disjoncteur qui déclenche à répétition',

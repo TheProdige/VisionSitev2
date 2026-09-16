@@ -6,7 +6,7 @@ import { Marque } from '@/components/logo'
 export const metadata: Metadata = {
   title: 'À propos',
   description:
-    'Lussier Électrique : un maître électricien licencié RBQ, membre de la CMEQ, au service du résidentiel et du commercial au Québec.',
+    'Antoine Lussier, maître électricien licencié RBQ et membre de la CMEQ, au service du résidentiel et du commercial à Drummondville.',
   alternates: { canonical: '/a-propos' },
 }
 
@@ -35,8 +35,8 @@ export default function PageAPropos() {
             {/* À REMPLIR — ce récit est un canevas : le remplacer par le
                 parcours réel de l'entreprise avant la mise en ligne. */}
             <p>
-              <strong className="text-texte">{site.nom}</strong> est une
-              entreprise d’électricité établie à{' '}
+              <strong className="text-texte">{site.nom}</strong>, c’est{' '}
+              {site.proprietaire}, maître électricien établi à{' '}
               {site.contact.adresse.ville}. On y fait ce que font les
               électriciens depuis toujours : tirer des fils, monter des
               panneaux, et s’assurer que rien ne chauffe là où ça ne devrait
