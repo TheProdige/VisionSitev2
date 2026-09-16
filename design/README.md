@@ -85,3 +85,38 @@ pas de serveur dans un export statique.
 > `app/soumission/validation.ts` — puis renvoie vers le téléphone. Ce mode
 > n'est pas destiné à la mise en ligne : le vrai site a besoin d'un serveur
 > pour recevoir les demandes.
+
+## Entrée « le camion » (prototype)
+
+`design/transit-lussier.html` — page autonome : le fourgon plein écran, où
+chaque caisse du rack ouvre une section. Publiée comme artefact, elle a besoin
+de `scene/scene.jpg` et `scene/scene-portrait.jpg` à côté d'elle, sous les noms
+`scene.jpg` et `scene-portrait.jpg`.
+
+### Les deux cadrages
+
+Il y a **deux scènes, pas une**. Une image 16:9 recadrée en `cover` sur un
+écran de téléphone ne laisse voir que la colonne du milieu : six sections sur
+neuf deviennent inatteignables. D'où une seconde version verticale, où les
+trois colonnes tiennent sur toute la hauteur. La bascule se fait à
+`max-aspect-ratio: 6/5`, et chaque cadrage a sa propre carte de zones.
+
+| Fichier | Rôle |
+| --- | --- |
+| `scene/scene.jpg` | Scène 16:9, écrans larges |
+| `scene/scene-portrait.jpg` | Scène 9:16, téléphones |
+| `scene/*.source.png` | Originaux pleine qualité, avant réencodage |
+
+### Les zones cliquables
+
+Elles sont décrites en **fractions de l'image**, pas de l'écran, et replacées
+en JS à partir de la géométrie réelle du `cover` : sans ce calcul, elles se
+décalent des caisses dès que le format de la fenêtre change. Si on remplace une
+scène, il faut relever les nouvelles fractions dans `CADRAGES`.
+
+### Remplacer par le vrai camion
+
+Les scènes sont générées (Higgsfield, `gpt_image_2_5`), volontairement sans
+marque ni texte sur les caisses. Pour passer aux photos réelles : deux prises
+du Transit portes ouvertes, une cadrée large et une verticale, sur trépied,
+à l'heure bleue avec les LED allumées. Puis réencoder et relever les zones.
