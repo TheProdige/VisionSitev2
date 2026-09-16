@@ -1,0 +1,114 @@
+{
+  "$commentaire": "Les ouvrages cliquables du héro. `x`/`y` sont en coordonnées normalisées sur l'image source, `profondeur` de 0 (loin) à 1 (près) : elle décide de combien le point se décale au parallax, pour qu'il reste collé à ce qu'il désigne. `rayon` est la portée du projecteur quand l'ouvrage est sélectionné. TOUS LES PRIX SONT DES PLACEHOLDERS.",
+  "image": "house-day.png",
+  "ouvrages": [
+    {
+      "id": "del",
+      "titre": "DEL permanentes",
+      "categorie": "Éclairage extérieur",
+      "x": 0.443,
+      "y": 0.194,
+      "profondeur": 0.3,
+      "rayon": 0.42,
+      "resume": "Un profil d'aluminium fixé à demeure sous le débord de toit, avec un ruban DEL à l'intérieur. Plus de lumières à poser et à décrocher chaque année.",
+      "fonctionnement": "On visse le profil dans la fascia, on tire un circuit dédié jusqu'à un contrôleur abrité, et le ruban se pilote ensuite au téléphone ou à l'interrupteur. Blanc chaud au quotidien, couleurs quand ça vous tente.",
+      "points": [
+        "Profil d'aluminium anodisé, invisible le jour",
+        "Zones programmables, minuterie au coucher du soleil",
+        "Ruban garanti 5 ans, remplaçable sans toucher au profil"
+      ],
+      "prix": "À partir de 2 800 $",
+      "detail": "pour une façade standard de 40 pieds"
+    },
+    {
+      "id": "borne",
+      "titre": "Borne de recharge",
+      "categorie": "Véhicule électrique",
+      "x": 0.627,
+      "y": 0.472,
+      "profondeur": 0.34,
+      "rayon": 0.24,
+      "resume": "Une borne de niveau 2 sur son propre circuit. Une nuit de charge complète au lieu de trois jours sur une prise ordinaire.",
+      "fonctionnement": "On vérifie d'abord que le panneau peut la porter — c'est le calcul de charge exigé par le Code. Ensuite, circuit dédié 240 V, borne fixée au mur, et on remplit avec vous la demande de subvention.",
+      "points": [
+        "Calcul de charge avant de promettre quoi que ce soit",
+        "Circuit dédié 40 A, conforme au Code",
+        "Demande Roulez vert remplie avec vous"
+      ],
+      "prix": "À partir de 1 450 $",
+      "detail": "borne et installation, avant subvention"
+    },
+    {
+      "id": "panneau",
+      "titre": "Panneau électrique",
+      "categorie": "Entrée électrique",
+      "x": 0.75,
+      "y": 0.478,
+      "profondeur": 0.24,
+      "rayon": 0.2,
+      "resume": "Le cœur de la maison. S'il est plein, s'il chauffe, ou s'il porte le nom d'une marque rappelée, c'est lui qu'on regarde en premier.",
+      "fonctionnement": "On coupe avec Hydro-Québec, on remplace le panneau et l'entrée, on réidentifie chaque circuit, et l'inspection passe avant qu'on parte. Une journée, courant rétabli le soir même.",
+      "points": [
+        "Passage à 200 A pour borne, thermopompe ou spa",
+        "Chaque disjoncteur réétiqueté, pas deviné",
+        "Inspection et scellé compris"
+      ],
+      "prix": "À partir de 3 200 $",
+      "detail": "remplacement 100 A → 200 A"
+    },
+    {
+      "id": "generatrice",
+      "titre": "Génératrice",
+      "categorie": "Secours",
+      "x": 0.092,
+      "y": 0.552,
+      "profondeur": 0.4,
+      "rayon": 0.2,
+      "resume": "Une panne de trois jours en janvier, ça se règle avant qu'elle arrive. La maison repart seule, sans rallonge dans le salon.",
+      "fonctionnement": "Génératrice sur dalle, au gaz naturel ou au propane, reliée à un panneau de transfert automatique. Elle démarre seule quelques secondes après la panne, et se remet en veille au retour du courant.",
+      "points": [
+        "Transfert automatique, aucune manœuvre à faire",
+        "Essai de démarrage hebdomadaire programmé",
+        "Circuits essentiels choisis avec vous"
+      ],
+      "prix": "À partir de 7 500 $",
+      "detail": "génératrice, dalle et transfert automatique"
+    },
+    {
+      "id": "paysager",
+      "titre": "Éclairage paysager",
+      "categorie": "Éclairage extérieur",
+      "x": 0.647,
+      "y": 0.685,
+      "profondeur": 0.55,
+      "rayon": 0.3,
+      "resume": "Des projecteurs sur la façade et des bornes le long de l'allée. La maison a l'air habitée, et on voit où on met les pieds.",
+      "fonctionnement": "Tout passe en basse tension à partir d'un transformateur : le fil s'enterre à faible profondeur, sans tranchée d'électricien. Cellule photoélectrique et minuterie, donc rien à allumer.",
+      "points": [
+        "Basse tension, sûr autour des enfants",
+        "Luminaires en laiton ou aluminium, pas en plastique",
+        "Allumage au coucher du soleil, extinction à l'heure choisie"
+      ],
+      "prix": "À partir de 1 900 $",
+      "detail": "huit luminaires et transformateur"
+    },
+    {
+      "id": "interieur",
+      "titre": "Éclairage intérieur",
+      "categorie": "Rénovation",
+      "x": 0.352,
+      "y": 0.3,
+      "profondeur": 0.28,
+      "rayon": 0.24,
+      "resume": "Des encastrés placés selon les meubles, pas selon la grille du plafond. C'est la différence entre une pièce éclairée et une pièce qui se vit.",
+      "fonctionnement": "On fait un plan d'éclairage pièce par pièce : général, zones de travail, ambiance. Gradateurs sur chaque circuit, température de couleur uniforme d'une pièce à l'autre.",
+      "points": [
+        "Plan pièce par pièce avant de percer",
+        "Gradateurs compatibles avec les DEL posées",
+        "Même température de couleur partout"
+      ],
+      "prix": "À partir de 950 $",
+      "detail": "pour une pièce, six encastrés sur gradateur"
+    }
+  ]
+}
