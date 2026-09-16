@@ -145,3 +145,37 @@ les retrouve. Source du GLB dans `design/scene3d/`.
 net, sans texture ni usure. Y arriver demanderait des textures PBR, de la
 géométrie de détail et beaucoup d'itération — ou, bien plus court, des photos
 du vrai camion.
+
+## Piste Sprinter (exploration en cours, non finalisée)
+
+Deuxième direction pour la page d'entrée : un **Sprinter vu de profil, porte
+coulissante ouverte** — le cadrage de la photo de référence, que la première
+tentative avait raté en montrant les portes arrière.
+
+| Fichier | Rôle |
+| --- | --- |
+| `scene/sprinter-studio.jpg` | Sprinter isolé sur fond studio, Recraft V4.1 en 2k. La meilleure image de la série, et la seule exploitable pour une conversion 3D. |
+| `scene/sprinter-crepuscule.jpg` | Le même van à l'heure bleue sur asphalte mouillé — plus atmosphérique, mais inutilisable en photogrammétrie. |
+| `scene/*.source.png` | Originaux pleine résolution, avant réencodage. |
+| `scene3d/sprinter-nu.glb` | Conversion image → 3D, **sans texture** : 45 000 sommets, gris. |
+| `sprinter3d.html` | Visualiseur Three.js prêt à recevoir le modèle texturé. |
+
+### Où ça en est
+
+La conversion **texturée** n'a pas été récupérée — l'exploration a été
+interrompue avant. Sans elle le modèle sort gris, donc `sprinter3d.html` n'a
+pas encore de modèle embarqué et n'est pas publiable tel quel.
+
+### Ce que vaut la photogrammétrie depuis une seule vue
+
+Un seul angle donne une face visible correcte et un côté opposé inventé. Le
+modèle sert pour un plan de trois quarts autour de la face photographiée, pas
+pour un tour complet. Pour un vrai tour à 360°, il faut plusieurs vues et
+`multi_image_to_3d`.
+
+### Comment les pastilles sont placées
+
+Pas en pourcentages d'écran : en **fractions de la boîte englobante du
+modèle**, converties en position monde après normalisation d'échelle, puis
+projetées à chaque image. Une pastille dont l'ancre passe derrière le véhicule
+est masquée — sinon on cliquerait une section qu'on ne voit pas.

@@ -1,0 +1,433 @@
+<title>Sprinter Lussier Électrique</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;900&family=Instrument+Serif&family=JetBrains+Mono:wght@500;700&display=swap">
+
+<style>
+  :root {
+    --ambre: #ffb524;
+    --ambre-doux: #ffd180;
+    --encre: #0a0c10;
+    --blanc: #fff;
+    --texte: #14161a;
+    --texte-doux: #5f6470;
+    --trait: #e9e6e0;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; overflow: hidden; background: var(--encre); }
+  body { font-family: Archivo, Arial, sans-serif; color: var(--blanc); -webkit-font-smoothing: antialiased; }
+
+  #vue { position: fixed; inset: 0; display: block; touch-action: none; }
+  #vue.pointe { cursor: pointer; }
+
+  .voile {
+    position: fixed; inset: 0; z-index: 30; display: grid; place-items: center;
+    background: var(--encre); transition: opacity .7s ease; text-align: center;
+  }
+  .voile p {
+    font-family: "JetBrains Mono", monospace; font-size: .7rem;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--ambre-doux);
+  }
+  .voile.parti { opacity: 0; pointer-events: none; }
+
+  .barre {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+    padding: calc(20px + env(safe-area-inset-top,0px)) 22px 20px; pointer-events: none;
+  }
+  .barre > * { pointer-events: auto; }
+  .lockup { display: inline-flex; flex-direction: column; line-height: 1; }
+  .lockup .mot { display: inline-flex; align-items: center; font-size: 1.28rem; font-weight: 900; letter-spacing: -.035em; text-shadow: 0 2px 16px rgba(0,0,0,.85); }
+  .lockup .sous { margin-top: .46em; font-size: .54rem; font-weight: 600; letter-spacing: .36em; color: var(--ambre-doux); }
+  .lockup svg { width: .34em; height: 1em; margin-inline: .07em; flex: none; transform: translateY(.03em); fill: var(--ambre); }
+
+  .tel {
+    display: inline-flex; align-items: center; gap: 9px; padding: 9px 16px; border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.22); background: rgba(10,12,16,.6); backdrop-filter: blur(8px);
+    font-family: "Instrument Serif", Georgia, serif; font-size: 1.2rem; color: var(--blanc);
+    text-decoration: none; white-space: nowrap;
+  }
+  .tel:hover { border-color: var(--ambre); }
+  .tel i { width: 7px; height: 7px; border-radius: 999px; background: var(--ambre); animation: pouls 2.4s ease-out infinite; }
+  @keyframes pouls {
+    0% { box-shadow: 0 0 0 0 rgba(255,181,36,.6); }
+    70% { box-shadow: 0 0 0 13px rgba(255,181,36,0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,181,36,0); }
+  }
+
+  /* Les pastilles de navigation sont du HTML projeté aux coordonnées 3D :
+     du texte net à toute distance, ce qu'une texture dans la scène ne
+     donnerait jamais. */
+  .pastille {
+    position: fixed; z-index: 15; transform: translate(-50%, -50%);
+    display: flex; align-items: center; gap: 8px;
+    padding: 7px 13px 7px 9px; border-radius: 999px;
+    border: 1px solid rgba(255,181,36,.5);
+    background: rgba(10,12,16,.82); backdrop-filter: blur(6px);
+    font-family: "JetBrains Mono", monospace; font-size: .6rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ambre-doux);
+    white-space: nowrap; cursor: pointer; pointer-events: auto;
+    transition: background-color .2s, border-color .2s, color .2s, opacity .3s;
+  }
+  .pastille b { width: 7px; height: 7px; border-radius: 999px; background: var(--ambre); flex: none; }
+  .pastille:hover, .pastille:focus-visible {
+    background: var(--ambre); color: var(--encre); border-color: var(--ambre); outline: none;
+  }
+  .pastille:hover b, .pastille:focus-visible b { background: var(--encre); }
+  .pastille.derriere { opacity: 0; pointer-events: none; }
+  .pastille.urgente b { animation: pouls 1.9s ease-out infinite; }
+
+  .invite {
+    position: fixed; left: 50%; bottom: calc(22px + env(safe-area-inset-bottom,0px));
+    transform: translateX(-50%); z-index: 20; text-align: center;
+    max-width: min(92vw, 32rem); pointer-events: none; transition: opacity .3s;
+  }
+  .invite h1 {
+    font-family: "Instrument Serif", Georgia, serif; font-weight: 400;
+    font-size: clamp(1.3rem, 4vw, 2rem); line-height: 1.1; margin: 0;
+    text-shadow: 0 2px 22px rgba(0,0,0,.9); text-wrap: balance;
+  }
+  .invite p { margin: 8px 0 0; font-size: .78rem; color: rgba(255,255,255,.6); text-shadow: 0 1px 10px rgba(0,0,0,.9); }
+
+  .panneau {
+    position: fixed; inset: 0; z-index: 40; display: flex; justify-content: flex-end;
+    background: rgba(4,5,7,.5); backdrop-filter: blur(3px);
+    opacity: 0; pointer-events: none; transition: opacity .3s ease;
+  }
+  .panneau[data-ouvert="oui"] { opacity: 1; pointer-events: auto; }
+  .tiroir {
+    width: min(450px, 100%); height: 100%; overflow-y: auto;
+    background: var(--blanc); color: var(--texte); border-left: 3px solid var(--ambre);
+    padding: calc(28px + env(safe-area-inset-top,0px)) 28px calc(28px + env(safe-area-inset-bottom,0px));
+    transform: translateX(26px); transition: transform .34s cubic-bezier(.22,.61,.36,1);
+  }
+  .panneau[data-ouvert="oui"] .tiroir { transform: none; }
+  .tiroir .haut { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+  .marqueur { margin: 0; font-family: "JetBrains Mono", monospace; font-size: .62rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #8a5a00; }
+  .tiroir h2 { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; font-size: clamp(1.55rem,5vw,2.05rem); line-height: 1.12; margin: 10px 0 0; text-wrap: balance; }
+  .resume { margin: 13px 0 0; color: var(--texte-doux); font-size: .96rem; line-height: 1.7; }
+  .tiroir ul { margin: 20px 0 0; padding: 0; list-style: none; }
+  .tiroir li { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--trait); font-size: .91rem; line-height: 1.6; }
+  .tiroir li::before { content: ""; flex: none; margin-top: 9px; width: 5px; height: 5px; border-radius: 999px; background: var(--ambre); }
+  .pied { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: 24px; }
+  .bouton { display: inline-flex; align-items: center; border-radius: 999px; padding: 12px 24px; font-size: .87rem; font-weight: 500; text-decoration: none; background: var(--texte); color: var(--blanc); }
+  .tel-t { font-family: "Instrument Serif", Georgia, serif; font-size: 1.4rem; color: var(--texte); text-decoration: none; }
+  .fermer { flex: none; border: 1px solid var(--trait); background: var(--blanc); color: var(--texte); width: 34px; height: 34px; border-radius: 999px; font-size: 1rem; cursor: pointer; }
+  .note { margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--trait); font-size: .74rem; line-height: 1.6; color: var(--texte-doux); }
+
+  @media (max-width: 720px) {
+    .tiroir { width: 100%; padding-inline: 20px; }
+    .panneau { justify-content: center; }
+    .tel { font-size: 1rem; padding: 7px 13px; }
+    .pastille { font-size: .52rem; padding: 5px 10px 5px 7px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition-duration: .01ms !important; animation-duration: .01ms !important; } }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="eclair" viewBox="0 0 56 100"><path d="M 36 0 L 2 58 L 24 58 L 18 100 L 56 38 L 32 38 Z"/></symbol>
+</defs></svg>
+
+<canvas id="vue"></canvas>
+<div class="voile" id="voile"><p>Chargement du camion…</p></div>
+
+<div class="barre">
+  <span class="lockup">
+    <span class="mot" aria-hidden="true">LUSS<svg><use href="#eclair"/></svg>ER</span>
+    <span class="sous" aria-hidden="true">ÉLECTRIQUE</span>
+  </span>
+  <a class="tel" href="tel:+18198179526"><i aria-hidden="true"></i>819 817-9526</a>
+</div>
+
+<div class="invite" id="invite">
+  <h1>Le camion est ouvert.</h1>
+  <p>Glissez pour en faire le tour. Cliquez une étiquette.</p>
+</div>
+
+<div class="panneau" id="panneau" role="dialog" aria-modal="true">
+  <div class="tiroir">
+    <div class="haut">
+      <div><p class="marqueur" id="m-sec"></p><h2 id="t-sec"></h2></div>
+      <button class="fermer" id="fermer" type="button" aria-label="Refermer">×</button>
+    </div>
+    <p class="resume" id="r-sec"></p>
+    <ul id="l-sec"></ul>
+    <div class="pied">
+      <a class="bouton" href="tel:+18198179526">Appeler maintenant</a>
+      <a class="tel-t" href="tel:+18198179526">819 817-9526</a>
+    </div>
+    <p class="note">Lussier Électrique — Antoine Lussier, maître électricien à Drummondville. Urgences 24 h sur 24.</p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/environments/RoomEnvironment.js"></script>
+<script>
+(function () {
+  var SECTIONS = {
+    urgence: { e: "Urgence 24/7", m: "24 heures sur 24", t: "Dépannage d’urgence",
+      r: "Panne, odeur de brûlé, disjoncteur qui saute sans arrêt : on répond jour et nuit.",
+      p: ["Panne totale ou partielle de courant", "Disjoncteur qui déclenche à répétition",
+          "Odeur de brûlé, prise ou interrupteur qui chauffe", "Dégât d’eau sur une installation",
+          "Remise en service après un sinistre"] },
+    panneau: { e: "Panneau électrique", m: "Service", t: "Panneau électrique et entrée de service",
+      r: "Remplacement de panneau, augmentation d’ampérage, mise aux normes de l’entrée.",
+      p: ["Remplacement d’un panneau à fusibles", "Passage de 100 A à 200 A", "Ajout d’un panneau secondaire",
+          "Mise à la terre et mise aux normes", "Coordination avec Hydro-Québec"] },
+    borne: { e: "Bornes de recharge", m: "Service", t: "Borne de recharge pour véhicule électrique",
+      r: "Installation de bornes 240 V à domicile ou en milieu commercial, admissibles aux subventions.",
+      p: ["Borne résidentielle 240 V (niveau 2)", "Vérification de la capacité du panneau",
+          "Bornes multiples pour immeubles", "Gestion de charge", "Accompagnement pour les subventions"] },
+    renovation: { e: "Rénovation", m: "Service", t: "Rénovation et construction résidentielle",
+      r: "Filage complet, ajout de circuits, éclairage, sous-sol, agrandissement.",
+      p: ["Filage complet d’une construction neuve", "Aménagement de sous-sol",
+          "Ajout de prises et de circuits dédiés", "Éclairage encastré et sur rail",
+          "Remplacement de filage aluminium"] },
+    commercial: { e: "Commercial", m: "Service", t: "Électricité commerciale",
+      r: "Locaux, commerces et bureaux : aménagement, éclairage LED, entretien préventif.",
+      p: ["Aménagement de local", "Conversion vers le LED", "Éclairage d’urgence et de sortie",
+          "Inspection thermographique", "Contrats d’entretien annuels"] },
+    normes: { e: "Mise aux normes", m: "Service", t: "Inspection et mise aux normes",
+      r: "Rapport avant achat, correction d’avis de non-conformité, remise à niveau.",
+      p: ["Inspection avant achat ou avant vente", "Correction d’un avis de non-conformité",
+          "Ajout de DDFT et AFCI", "Mise à la terre et continuité des masses", "Rapport écrit remis au client"] },
+    apropos: { e: "Le maître électricien", m: "L’entreprise", t: "Antoine Lussier, maître électricien",
+      r: "Une entreprise d’électricité établie à Drummondville, au service du résidentiel et du commercial.",
+      p: ["Licence RBQ en règle", "Membre de la CMEQ", "Assurance responsabilité",
+          "Soumission écrite avant les travaux", "Main-d’œuvre garantie"] },
+    territoire: { e: "Territoire", m: "Où on se déplace", t: "Territoire desservi",
+      r: "Basé à Drummondville. Si votre ville n’est pas dans la liste, appelez quand même.",
+      p: ["Drummondville", "Saint-Cyrille-de-Wendover", "Saint-Germain-de-Grantham",
+          "Wickham", "Victoriaville", "Nicolet et Bécancour"] },
+    soumission: { e: "Soumission", m: "Gratuite, sans engagement", t: "Demander une soumission",
+      r: "Plus votre description est précise, plus le chiffre qu’on vous donnera sera juste.",
+      p: ["Réponse sous un jour ouvrable", "Soumission écrite et détaillée",
+          "Le prix annoncé est le prix payé", "Un imprévu ? On appelle avant de continuer",
+          "Pour une urgence, le téléphone reste le plus rapide"] }
+  }
+
+  // Position de chaque section dans le repère du camion, en fraction de sa
+  // boîte englobante : x le long du véhicule, y la hauteur, z la profondeur.
+  // L'ouverture de la porte occupe le tiers central du flanc.
+  var ANCRES = [
+    { cle: "normes",     x: 0.40, y: 0.74, z: 0.62 },
+    { cle: "commercial", x: 0.52, y: 0.74, z: 0.62 },
+    { cle: "renovation", x: 0.40, y: 0.58, z: 0.62 },
+    { cle: "panneau",    x: 0.52, y: 0.58, z: 0.62 },
+    { cle: "borne",      x: 0.40, y: 0.42, z: 0.62 },
+    { cle: "territoire", x: 0.52, y: 0.42, z: 0.62 },
+    { cle: "apropos",    x: 0.20, y: 0.60, z: 0.62 },
+    { cle: "urgence",    x: 0.40, y: 0.24, z: 0.62 },
+    { cle: "soumission", x: 0.55, y: 0.24, z: 0.62 }
+  ]
+
+  var canvas = document.getElementById("vue")
+  var rendu = new THREE.WebGLRenderer({ canvas: canvas, antialias: true })
+  rendu.setPixelRatio(Math.min(devicePixelRatio, 2))
+  rendu.outputEncoding = THREE.sRGBEncoding
+  rendu.toneMapping = THREE.ACESFilmicToneMapping
+  rendu.toneMappingExposure = 0.95
+  rendu.shadowMap.enabled = true
+  rendu.shadowMap.type = THREE.PCFSoftShadowMap
+
+  var scene = new THREE.Scene()
+  scene.background = new THREE.Color(0x0a0c10)
+  scene.fog = new THREE.Fog(0x0a0c10, 14, 34)
+
+  var pmrem = new THREE.PMREMGenerator(rendu)
+  scene.environment = pmrem.fromScene(new THREE.RoomEnvironment(), 0.04).texture
+
+  var camera = new THREE.PerspectiveCamera(36, 1, 0.05, 120)
+  var ctrl = new THREE.OrbitControls(camera, canvas)
+  ctrl.enableDamping = true
+  ctrl.dampingFactor = 0.07
+  ctrl.enablePan = false
+  ctrl.minPolarAngle = Math.PI * 0.18
+  ctrl.maxPolarAngle = Math.PI * 0.52
+
+  scene.add(new THREE.HemisphereLight(0x9fb4d8, 0x0a0c10, 0.5))
+  var cle = new THREE.DirectionalLight(0xfff4e2, 2.0)
+  cle.position.set(4, 7, 5)
+  cle.castShadow = true
+  cle.shadow.mapSize.set(2048, 2048)
+  scene.add(cle)
+  var contre = new THREE.DirectionalLight(0x8fb0ff, 0.9)
+  contre.position.set(-5, 3, -4)
+  scene.add(contre)
+
+  // Sol : sans lui le camion flotte dans le vide.
+  var sol = new THREE.Mesh(
+    new THREE.CircleGeometry(30, 64),
+    new THREE.MeshStandardMaterial({ color: 0x121519, roughness: 0.82, metalness: 0.05 })
+  )
+  sol.rotation.x = -Math.PI / 2
+  sol.receiveShadow = true
+  scene.add(sol)
+
+  var pastilles = []
+  var ancres3d = []
+  var camion = null
+  var choisie = null
+  var volA = null, volB = null, volT = 0
+  var poseDepart = null
+
+  var loader = new THREE.GLTFLoader()
+  var GLB_B64 = document.getElementById("modele").textContent.trim()
+  function versBuffer(b64) {
+    var bin = atob(b64), u = new Uint8Array(bin.length)
+    for (var i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i)
+    return u.buffer
+  }
+
+  loader.parse(versBuffer(GLB_B64), "", function (gltf) {
+    camion = gltf.scene
+    camion.traverse(function (o) {
+      if (!o.isMesh) return
+      o.castShadow = true
+      o.receiveShadow = true
+      ;(Array.isArray(o.material) ? o.material : [o.material]).forEach(function (m) {
+        if (!m) return
+        m.envMapIntensity = 0.55
+        if (m.map) m.map.encoding = THREE.sRGBEncoding
+      })
+    })
+
+    // Le modèle arrive à une échelle et une origine quelconques : on le
+    // normalise pour que la caméra et les ancres restent prévisibles.
+    var boite = new THREE.Box3().setFromObject(camion)
+    var taille = boite.getSize(new THREE.Vector3())
+    var centre = boite.getCenter(new THREE.Vector3())
+    var k = 6 / Math.max(taille.x, taille.y, taille.z)
+    camion.scale.setScalar(k)
+    camion.position.sub(centre.multiplyScalar(k))
+    camion.position.y += (taille.y * k) / 2
+    scene.add(camion)
+
+    var b2 = new THREE.Box3().setFromObject(camion)
+    var t2 = b2.getSize(new THREE.Vector3())
+
+    ANCRES.forEach(function (a) {
+      var p = new THREE.Vector3(
+        b2.min.x + a.x * t2.x,
+        b2.min.y + a.y * t2.y,
+        b2.min.z + a.z * t2.z
+      )
+      var o = new THREE.Object3D()
+      o.position.copy(p)
+      scene.add(o)
+
+      var s = SECTIONS[a.cle]
+      var el = document.createElement("button")
+      el.type = "button"
+      el.className = "pastille" + (a.cle === "urgence" ? " urgente" : "")
+      el.innerHTML = '<b aria-hidden="true"></b>' + s.e
+      el.addEventListener("click", function (ev) { ev.stopPropagation(); ouvrir(a, o, el) })
+      document.body.appendChild(el)
+
+      pastilles.push(el)
+      ancres3d.push({ ancre: a, objet: o, el: el })
+    })
+
+    var d = Math.max(t2.x, t2.y) * 1.25
+    poseDepart = {
+      pos: new THREE.Vector3(b2.min.x + t2.x * 0.42, t2.y * 0.62, d),
+      cible: new THREE.Vector3(0, t2.y * 0.42, 0)
+    }
+    camera.position.copy(poseDepart.pos)
+    ctrl.target.copy(poseDepart.cible)
+    ctrl.minDistance = d * 0.35
+    ctrl.maxDistance = d * 1.8
+    ctrl.update()
+
+    document.getElementById("voile").classList.add("parti")
+    setTimeout(function () {
+      var v = document.getElementById("voile"); if (v) v.remove()
+    }, 800)
+  }, function () {
+    document.getElementById("voile").innerHTML =
+      '<p style="color:#ff9c9c">Le modèle 3D n’a pas pu charger.</p>'
+  })
+
+  var panneau = document.getElementById("panneau")
+
+  function ouvrir(a, objet, el) {
+    var s = SECTIONS[a.cle]
+    choisie = el
+    document.getElementById("m-sec").textContent = s.m
+    document.getElementById("t-sec").textContent = s.t
+    document.getElementById("r-sec").textContent = s.r
+    var ul = document.getElementById("l-sec")
+    ul.innerHTML = ""
+    s.p.forEach(function (x) { var li = document.createElement("li"); li.textContent = x; ul.appendChild(li) })
+    panneau.setAttribute("data-ouvert", "oui")
+    document.getElementById("invite").style.opacity = 0
+
+    var p = objet.position
+    volA = { pos: camera.position.clone(), cible: ctrl.target.clone() }
+    volB = { pos: new THREE.Vector3(p.x - 0.4, p.y + 0.3, p.z + 2.6), cible: p.clone() }
+    volT = 0
+  }
+
+  function fermer() {
+    panneau.setAttribute("data-ouvert", "non")
+    document.getElementById("invite").style.opacity = ""
+    choisie = null
+    if (poseDepart) {
+      volA = { pos: camera.position.clone(), cible: ctrl.target.clone() }
+      volB = { pos: poseDepart.pos.clone(), cible: poseDepart.cible.clone() }
+      volT = 0
+    }
+  }
+  document.getElementById("fermer").addEventListener("click", fermer)
+  panneau.addEventListener("click", function (e) { if (e.target === panneau) fermer() })
+  addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && panneau.getAttribute("data-ouvert") === "oui") fermer()
+  })
+
+  function dimensionner() {
+    camera.aspect = innerWidth / innerHeight
+    camera.updateProjectionMatrix()
+    rendu.setSize(innerWidth, innerHeight, false)
+  }
+  addEventListener("resize", dimensionner)
+  dimensionner()
+
+  var v = new THREE.Vector3()
+  var horloge = new THREE.Clock()
+
+  function boucle() {
+    requestAnimationFrame(boucle)
+    var dt = Math.min(horloge.getDelta(), 0.05)
+
+    if (volA && volB) {
+      volT = Math.min(1, volT + dt * 1.05)
+      var k = volT < 0.5 ? 4 * volT * volT * volT : 1 - Math.pow(-2 * volT + 2, 3) / 2
+      camera.position.lerpVectors(volA.pos, volB.pos, k)
+      ctrl.target.lerpVectors(volA.cible, volB.cible, k)
+      if (volT >= 1) volA = volB = null
+    }
+    ctrl.update()
+
+    // Projection des pastilles. Une ancre passée derrière le camion doit
+    // disparaître, sinon on clique une section qu'on ne voit pas.
+    var devant = camera.getWorldDirection(new THREE.Vector3())
+    ancres3d.forEach(function (a) {
+      a.objet.getWorldPosition(v)
+      var versAncre = v.clone().sub(camera.position)
+      var faceVisible = versAncre.dot(devant) > 0 && v.z > -0.2
+      v.project(camera)
+      var x = (v.x * 0.5 + 0.5) * innerWidth
+      var y = (-v.y * 0.5 + 0.5) * innerHeight
+      a.el.style.left = x + "px"
+      a.el.style.top = y + "px"
+      a.el.classList.toggle("derriere", !faceVisible || v.z > 1)
+    })
+
+    rendu.render(scene, camera)
+  }
+  boucle()
+})()
+</script>
