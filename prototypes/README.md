@@ -1,6 +1,6 @@
-# Phase 1 — trois directions visuelles
+# Phase 1 — quatre directions visuelles
 
-Trois pages d'accueil complètes, chacune dans un fichier HTML autonome : on
+Quatre pages d'accueil complètes, chacune dans un fichier HTML autonome : on
 ouvre le fichier dans un navigateur, rien à installer. Même contenu, même
 logo, même palette tirée du logo (ambre `#FFB524`, encre `#0D0F13`) — seule la
 direction change, pour que la comparaison porte sur le parti pris et pas sur
@@ -16,6 +16,7 @@ bandeau d'urgence, le pied de page et la barre mobile.
 | `direction-a.html` | A — « Le courant » |
 | `direction-b.html` | B — « Chantier » |
 | `direction-c.html` | C — « Le panneau » |
+| `direction-d.html` | D — « Le plan » |
 
 ## A — « Le courant »
 
@@ -38,7 +39,25 @@ télécharger) tient le héro : il s'incline sous le curseur et chaque
 disjoncteur est une section du site. On ouvre « Résidentiel », la section
 s'allume et la page y descend. La navigation devient le métier.
 
-## Ce qui est déjà vrai dans les trois
+## D — « Le plan »
+
+Le site est une feuille de plans électriques : cartouche en haut avec la
+licence, le numéro de feuille et l'échelle, symboles normalisés dessinés au
+trait bleu, cédule de panneau pour le commercial, légende qui suit le relevé,
+annotations au crayon rouge dans la marge. Papier chaud, pas de blanc d'écran.
+
+Trois mécaniques portent la page : la **mise sous tension** au chargement (un
+compteur monte à 100, puis le titre se lève ligne par ligne), les **volets** —
+chaque bloc est essuyé par un `clip-path` à l'entrée, comme un calque qu'on
+tire — et le **relevé de coordonnées** qui suit la souris dans le cartouche.
+Aucune bibliothèque : tout tient en CSS et en une centaine de lignes de JS.
+
+C'est la direction inspirée de la référence envoyée (illoca.unseen.co) : on en
+reprend la mécanique — papier, chapitres numérotés, volets au défilement,
+relevé de coordonnées — transposée dans le monde du dessin électrique plutôt
+que dans celui de l'architecte.
+
+## Ce qui est déjà vrai dans les quatre
 
 - Appel au-dessus de la ligne de flottaison, sur bureau comme sur téléphone
 - Barre d'appel fixe en bas sur mobile : Appeler / Texto / Soumission
