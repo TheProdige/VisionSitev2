@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="fr-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lussier Électrique — Maître électricien à Drummondville</title>
+<meta name="description" content="Maître électricien à Drummondville. Éclairage intégré, panneaux et entrées électriques, bornes de recharge. Résidentiel et commercial, urgence 24/7.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   LUSSIER ÉLECTRIQUE
+   Un site porté par la photographie. Le parti pris tient en une
+   phrase : la même lumière sur toutes les images, une seule
+   famille de titres, beaucoup de vide, et pas un effet de plus
+   que nécessaire. Le luxe, ici, c'est la retenue.
+   ============================================================ */
+
+:root{
+  /* Neutres chauds, tirés de la série photo — pierre, chêne, plâtre. */
+  --nuit:#17150f; --nuit-2:#221f18; --encre:#2a2620; --gris:#6b655c; --gris-clair:#9a9288;
+  --creme:#f7f4ee; --papier:#fefdfb; --pierre:#eae5dc; --trait:#ddd6c9;
+  /* L'ambre du logo, ramené au laiton : à cette saturation il devient une
+     matière, pas un néon. Le jaune pur ne reste que dans l'éclair du logo. */
+  --laiton:#a8813f; --laiton-fonce:#7d5f26; --laiton-clair:#d4b078; --ambre:#ffb524;
+  --page:min(1320px,100% - clamp(1.5rem,7vw,8rem));
+  --etroit:min(880px,100% - clamp(1.5rem,7vw,8rem));
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--papier);color:var(--encre);
+  font-family:"Instrument Sans",system-ui,sans-serif;font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;font-feature-settings:"ss01"}
+h1,h2,h3{margin:0;font-family:Fraunces,Georgia,serif;font-weight:300;
+  letter-spacing:-.02em;line-height:1.06;text-wrap:balance;font-variation-settings:"SOFT" 20}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+img{display:block;width:100%;height:100%;object-fit:cover}
+button{font:inherit;color:inherit}
+.page{width:var(--page);margin-inline:auto}
+.etroit{width:var(--etroit);margin-inline:auto}
+.oeil{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Une seule échelle d'étiquettes, partout. */
+.etiquette{font-size:.69rem;font-weight:500;letter-spacing:.17em;text-transform:uppercase;color:var(--gris)}
+.etiquette.or{color:var(--laiton-fonce)}
+
+/* ---------- révélation ----------
+   Sans JS, tout est visible : le script ne fait qu'armer l'effet. */
+html.js .lever{opacity:0;transform:translateY(18px);
+  transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1)}
+html.js .lever.vu{opacity:1;transform:none}
+html.js .lever[data-retard="1"]{transition-delay:.08s}
+html.js .lever[data-retard="2"]{transition-delay:.16s}
+html.js .lever[data-retard="3"]{transition-delay:.24s}
+/* L'image se découvre par le bas et se pose : un mouvement, pas deux. */
+.cadre{position:relative;overflow:hidden;background:var(--pierre)}
+.cadre img{transform:scale(1.06);transition:transform 1.6s cubic-bezier(.22,1,.36,1)}
+html.js .cadre.vu img{transform:scale(1)}
+
+/* ---------- entête ---------- */
+header{position:fixed;top:0;left:0;right:0;z-index:50;padding-block:1.5rem;
+  transition:background .4s ease,padding .4s ease,box-shadow .4s ease}
+header.pose{background:rgba(254,253,251,.92);backdrop-filter:blur(16px);padding-block:.9rem;
+  box-shadow:0 1px 0 var(--trait)}
+header .page{display:flex;align-items:center;gap:clamp(1.5rem,5vw,4rem)}
+.marque{display:inline-flex;flex-direction:column;line-height:1;color:#fff;transition:color .4s}
+header.pose .marque{color:var(--encre)}
+.marque b{display:inline-flex;align-items:center;font-size:1.1rem;font-weight:600;letter-spacing:-.03em}
+.marque .eclair{width:.34em;height:1em;margin-inline:.07em;transform:translateY(.03em);color:var(--ambre);flex:none}
+.marque i{margin-top:.45em;font-size:.47rem;font-style:normal;font-weight:600;letter-spacing:.3em;color:var(--laiton-clair)}
+header.pose .marque i{color:var(--laiton-fonce)}
+/* Scoper à l'entête : un sélecteur de balise attrape aussi les listes de
+   services et de villes, qui sont des <nav> elles aussi — elles se
+   retrouvaient en ligne et en texte blanc sur fond clair. */
+header nav{margin-left:auto;display:flex;gap:2.2rem;font-size:.93rem}
+header nav a{color:rgba(255,255,255,.88);padding-block:.2rem;border-bottom:1px solid transparent;transition:.2s}
+header.pose nav a{color:var(--encre)}
+header nav a:hover{border-color:currentColor}
+/* La navigation disparaît sous 940 px : sans marge automatique, le numéro
+   se colle au logo au lieu de tenir le bord droit. */
+.tel-entete{margin-left:auto;font-weight:500;color:#fff;transition:color .4s}
+header.pose .tel-entete{color:var(--encre)}
+@media (max-width:940px){header nav{display:none}}
+
+/* ---------- héro ---------- */
+.hero{position:relative;height:100svh;min-height:600px;color:#fff;isolation:isolate}
+.hero .cadre{position:absolute;inset:0}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(23,21,15,.52) 0,rgba(23,21,15,.12) 26%,transparent 46%,
+    rgba(23,21,15,.42) 74%,rgba(23,21,15,.80) 100%)}
+.hero .page{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;
+  justify-content:flex-end;padding-bottom:clamp(3rem,9vh,6rem)}
+.hero .etiquette{color:rgba(255,255,255,.8)}
+.hero h1{font-size:clamp(2.6rem,6.2vw,5.6rem);margin:1.3rem 0 0;max-width:16ch;
+  text-shadow:0 2px 40px rgba(23,21,15,.5)}
+.hero h1 em{font-style:italic;font-weight:300}
+.hero .sous{margin-top:1.6rem;max-width:46ch;color:rgba(255,255,255,.86);font-size:1.06rem}
+.actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:2.4rem}
+.btn{display:inline-flex;align-items:center;gap:.6rem;padding:1rem 1.7rem;font-size:.95rem;font-weight:500;
+  border:1px solid transparent;transition:.2s}
+.btn-plein{background:var(--papier);color:var(--encre)}
+.btn-plein:hover{background:var(--laiton-clair)}
+.btn-fil{border-color:rgba(255,255,255,.45);color:#fff}
+.btn-fil:hover{background:rgba(255,255,255,.12);border-color:#fff}
+.btn-encre{background:var(--encre);color:var(--papier)}
+.btn-encre:hover{background:var(--laiton-fonce)}
+.btn-contour{border-color:var(--trait);color:var(--encre)}
+.btn-contour:hover{border-color:var(--encre);background:var(--creme)}
+.repere-bas{position:absolute;left:0;right:0;bottom:1.6rem;z-index:2;display:flex;justify-content:center}
+.repere-bas span{width:1px;height:42px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.7))}
+
+/* ---------- sections ---------- */
+section{padding-block:clamp(4.5rem,13vh,10rem)}
+.creme{background:var(--creme)}
+.sombre{background:var(--nuit);color:var(--pierre)}
+.sombre h2,.sombre h3{color:var(--papier)}
+
+/* manifeste */
+.manifeste{display:grid;grid-template-columns:1fr 1.85fr;gap:clamp(2rem,6vw,6rem);align-items:start}
+.manifeste .texte{font-family:Fraunces,Georgia,serif;font-weight:300;font-size:clamp(1.35rem,2.5vw,1.95rem);
+  line-height:1.38;letter-spacing:-.015em}
+.manifeste .texte + .texte{margin-top:1.3rem}
+.chiffres{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:clamp(3rem,7vw,5rem);
+  border-top:1px solid var(--trait);padding-top:2rem}
+.chiffres b{display:block;font-family:Fraunces,serif;font-weight:300;font-size:clamp(2rem,4vw,2.9rem);
+  letter-spacing:-.03em;line-height:1}
+.chiffres span{display:block;margin-top:.5rem;color:var(--gris);font-size:.93rem}
+@media (max-width:820px){.manifeste{grid-template-columns:1fr;gap:1.6rem}
+  .chiffres{grid-template-columns:1fr;gap:1.4rem}}
+
+/* tête de section */
+.tete{display:grid;grid-template-columns:1fr 1.85fr;gap:clamp(2rem,6vw,6rem);align-items:end;
+  margin-bottom:clamp(2.5rem,6vw,4.5rem)}
+.tete h2{font-size:clamp(2rem,4.4vw,3.4rem)}
+.tete p{color:var(--gris);max-width:44ch}
+@media (max-width:820px){.tete{grid-template-columns:1fr;gap:1rem}}
+
+/* métiers en rangées alternées */
+.metier{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:center;
+  padding-block:clamp(2.5rem,6vw,4.5rem)}
+.metier + .metier{border-top:1px solid var(--trait)}
+.metier:nth-child(even) .cadre{order:2}
+.metier .cadre{aspect-ratio:4/3}
+.metier .no{font-family:Fraunces,serif;font-weight:300;font-size:1.1rem;color:var(--laiton)}
+.metier h3{font-size:clamp(1.6rem,3vw,2.3rem);margin:.9rem 0 1rem}
+.metier p{color:var(--gris);max-width:40ch}
+.metier .lien{display:inline-flex;align-items:center;gap:.55rem;margin-top:1.6rem;
+  font-size:.93rem;font-weight:500;border-bottom:1px solid var(--trait);padding-bottom:.3rem;transition:.2s}
+.metier .lien:hover{border-color:var(--encre);gap:.9rem}
+@media (max-width:820px){.metier{grid-template-columns:1fr;gap:1.6rem}
+  .metier:nth-child(even) .cadre{order:0}}
+
+/* reste des services */
+.liste{border-top:1px solid var(--trait);margin-top:clamp(2rem,5vw,3.5rem)}
+.liste a{display:grid;grid-template-columns:auto 1fr auto;gap:1.5rem;align-items:baseline;
+  padding:1.35rem .2rem;border-bottom:1px solid var(--trait);transition:.2s}
+.liste a:hover{padding-left:1rem;background:var(--creme)}
+.liste .no{font-family:Fraunces,serif;color:var(--laiton);font-size:.95rem}
+.liste .nom{font-size:clamp(1.1rem,2vw,1.4rem);font-weight:500}
+.liste .dit{color:var(--gris);font-size:.92rem;text-align:right}
+@media (max-width:700px){.liste a{grid-template-columns:auto 1fr}.liste .dit{display:none}}
+
+/* image pleine largeur + citation */
+.plein{position:relative;height:clamp(420px,62vh,720px);isolation:isolate}
+.plein .cadre{position:absolute;inset:0}
+.plein::after{content:"";position:absolute;inset:0;z-index:1;background:rgba(23,21,15,.42)}
+.plein .mot{position:relative;z-index:2;height:100%;display:grid;place-content:center;text-align:center;color:#fff}
+.plein blockquote{margin:0;font-family:Fraunces,Georgia,serif;font-weight:300;font-style:italic;
+  font-size:clamp(1.7rem,4vw,3.1rem);line-height:1.22;max-width:18ch;letter-spacing:-.02em}
+.plein cite{display:block;margin-top:1.6rem;font-style:normal;font-size:.72rem;font-weight:500;
+  letter-spacing:.17em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+
+/* façon de faire */
+.etapes{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--trait)}
+.etapes div{padding:2rem 1.6rem 0 0;border-right:1px solid var(--trait)}
+.etapes div:last-child{border-right:0;padding-right:0}
+.etapes .no{font-family:Fraunces,serif;font-weight:300;font-size:2.1rem;color:var(--laiton);line-height:1}
+.etapes h3{font-size:1.16rem;font-weight:400;margin:.9rem 0 .5rem}
+.etapes p{color:var(--gris);font-size:.93rem}
+@media (max-width:820px){.etapes{grid-template-columns:1fr}
+  .etapes div{border-right:0;border-bottom:1px solid var(--trait);padding:1.6rem 0}
+  .etapes div:last-child{border-bottom:0}}
+
+/* territoire et contact */
+.contact{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(2.5rem,7vw,7rem);align-items:start}
+.villes{display:grid;gap:0;margin-top:1.5rem}
+.villes a{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
+  padding:1.1rem 0;border-bottom:1px solid rgba(234,229,220,.16);font-size:1.15rem}
+.villes a:first-child{border-top:1px solid rgba(234,229,220,.16)}
+.villes a:hover{color:var(--laiton-clair)}
+.villes .loin{font-size:.8rem;color:var(--gris-clair)}
+.appel b{display:block;font-family:Fraunces,serif;font-weight:300;font-size:clamp(2.2rem,5vw,3.4rem);
+  letter-spacing:-.03em;line-height:1.05;margin-top:.7rem}
+.appel b a:hover{color:var(--laiton-clair)}
+.appel .courriel{display:inline-block;margin-top:1.1rem;color:var(--pierre);
+  border-bottom:1px solid rgba(234,229,220,.3);padding-bottom:.2rem}
+.appel .courriel:hover{color:var(--laiton-clair);border-color:var(--laiton-clair)}
+.urgence{margin-top:2.5rem;padding-top:1.6rem;border-top:1px solid rgba(234,229,220,.16)}
+.urgence p{color:var(--gris-clair);margin-top:.5rem;max-width:40ch;font-size:.95rem}
+@media (max-width:820px){.contact{grid-template-columns:1fr}}
+
+/* pied */
+footer{background:var(--nuit-2);color:var(--gris-clair);padding-block:3.5rem}
+footer .page{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;align-items:flex-end}
+footer .marque{color:var(--papier)}
+footer .mentions{font-size:.83rem;line-height:1.9}
+footer a:hover{color:var(--laiton-clair)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.001ms!important;animation-duration:.001ms!important}
+  html.js .lever{opacity:1;transform:none}
+  .cadre img{transform:none}
+}
+</style>
+</head>
+<body>
+
+<header id="entete">
+  <div class="page">
+    <a class="marque" href="#" aria-label="Lussier Électrique, accueil">
+      <b aria-hidden="true">LUSS<svg class="eclair" viewBox="0 0 56 100"><path d="M 36 0 L 2 58 L 24 58 L 18 100 L 56 38 L 32 38 Z" fill="currentColor"/></svg>ER</b>
+      <i aria-hidden="true">ÉLECTRIQUE</i>
+    </a>
+    <nav>
+      <a href="#metiers">Métiers</a>
+      <a href="#facon">Façon de faire</a>
+      <a href="#territoire">Territoire</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="tel-entete" href="tel:+18195550100">819 555-0100</a>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="cadre">
+    <img src="images/hero-salon.jpg" alt="Salon contemporain à la tombée du jour, gorge lumineuse allumée au plafond et grande baie vitrée." fetchpriority="high">
+  </div>
+  <div class="page">
+    <span class="etiquette lever">Maître électricien · Drummondville</span>
+    <h1 class="lever" data-retard="1">L'ouvrage se juge <em>dix ans plus tard.</em></h1>
+    <p class="sous lever" data-retard="2">Éclairage intégré, panneaux, bornes de recharge. Chiffré d'avance, posé propre, garanti par écrit — et quelqu'un au bout du fil quand ça presse.</p>
+    <div class="actions lever" data-retard="3">
+      <a class="btn btn-plein" href="tel:+18195550100">Appeler · 819 555-0100</a>
+      <a class="btn btn-fil" href="#contact">Demander une soumission</a>
+    </div>
+  </div>
+  <div class="repere-bas" aria-hidden="true"><span></span></div>
+</section>
+
+<section class="creme">
+  <div class="page manifeste">
+    <p class="etiquette or lever">Notre métier</p>
+    <div>
+      <p class="texte lever" data-retard="1">Un panneau se remplace une fois par génération. Une borne de recharge passe vingt ans au même mur. Un plan d'éclairage décide de la façon dont une pièce se vit, tous les soirs.</p>
+      <p class="texte lever" data-retard="2">On travaille à cette échelle-là : celle où le détail soigné aujourd'hui se voit encore dans dix ans. C'est plus lent à faire. Ça ne se remarque jamais. C'est exactement le but.</p>
+      <div class="cadre lever" data-retard="3" style="aspect-ratio:16/7;margin-top:clamp(2.5rem,6vw,4rem)">
+        <img src="images/atelier.jpg" alt="Les mains d'un électricien dénudant un conducteur de cuivre à l'établi." loading="lazy">
+      </div>
+      <div class="chiffres lever">
+        <div><b>15 ans</b><span>de métier, du résidentiel au commercial</span></div>
+        <div><b>2 500</b><span>projets menés dans le Centre-du-Québec</span></div>
+        <div><b>4,9</b><span>sur Google, sur 87 avis</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="metiers">
+  <div class="page">
+    <div class="tete">
+      <p class="etiquette or lever">Ce qu'on fait</p>
+      <div>
+        <h2 class="lever" data-retard="1">Trois ouvrages qui changent une maison</h2>
+        <p class="lever" data-retard="2" style="margin-top:1.1rem">Le reste suit dessous. Tout se chiffre après une visite, jamais au téléphone.</p>
+      </div>
+    </div>
+
+    <article class="metier">
+      <div class="cadre lever"><img src="images/eclairage.jpg" alt="Détail d'un plafond contemporain avec gorge lumineuse linéaire intégrée." loading="lazy"></div>
+      <div class="lever" data-retard="1">
+        <span class="no">01</span>
+        <h3>Éclairage intégré</h3>
+        <p>Gorges lumineuses, encastrés, gradateurs. On dessine un plan pièce par pièce — général, zones de travail, ambiance — avant de percer le premier trou. Même température de couleur d'une pièce à l'autre, et des gradateurs qui parlent réellement aux DEL posées.</p>
+        <a class="lien" href="#contact">Demander une soumission <span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+
+    <article class="metier">
+      <div class="cadre lever"><img src="images/panneau.jpg" alt="Panneau électrique résidentiel neuf, disjoncteurs alignés et câblage ordonné." loading="lazy"></div>
+      <div class="lever" data-retard="1">
+        <span class="no">02</span>
+        <h3>Panneaux et entrées</h3>
+        <p>Passage à 200 A, remplacement d'un panneau plein, correction d'une marque rappelée. On coupe avec Hydro-Québec le matin, chaque circuit est réétiqueté — pas deviné — et l'inspection passe avant qu'on parte. Courant rétabli le soir même.</p>
+        <a class="lien" href="#contact">Demander une soumission <span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+
+    <article class="metier">
+      <div class="cadre lever"><img src="images/borne.jpg" alt="Borne de recharge murale pour véhicule électrique sur un mur de pierre calcaire." loading="lazy"></div>
+      <div class="lever" data-retard="1">
+        <span class="no">03</span>
+        <h3>Bornes de recharge</h3>
+        <p>Niveau 2 sur circuit dédié. On commence par le calcul de charge exigé par le Code : savoir si le panneau peut la porter avant de promettre quoi que ce soit. La demande de subvention se remplit avec vous, à la fin.</p>
+        <a class="lien" href="#contact">Demander une soumission <span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+
+    <nav class="liste lever" aria-label="Autres services">
+      <a href="#contact"><span class="no">04</span><span class="nom">Rénovation et filage</span><span class="dit">Sous-sol, agrandissement, cuisine</span></a>
+      <a href="#contact"><span class="no">05</span><span class="nom">Génératrice de secours</span><span class="dit">Transfert automatique</span></a>
+      <a href="#contact"><span class="no">06</span><span class="nom">Éclairage paysager</span><span class="dit">Basse tension, façade et allée</span></a>
+      <a href="#contact"><span class="no">07</span><span class="nom">Mise aux normes</span><span class="dit">Correction d'avis, suivi d'inspection</span></a>
+      <a href="#contact"><span class="no">08</span><span class="nom">Entretien commercial</span><span class="dit">Contrat annuel, thermographie</span></a>
+      <a href="#contact"><span class="no">09</span><span class="nom">Urgence</span><span class="dit">Jour, nuit, fin de semaine</span></a>
+    </nav>
+  </div>
+</section>
+
+<section class="plein" style="padding:0">
+  <div class="cadre lever"><img src="images/facade.jpg" alt="Façade d'une résidence contemporaine à la tombée du jour, éclairage architectural allumé." loading="lazy"></div>
+  <div class="mot page">
+    <blockquote>Le prix annoncé est celui que vous payez.</blockquote>
+    <cite>Antoine Lussier, maître électricien</cite>
+  </div>
+</section>
+
+<section id="facon" class="creme">
+  <div class="page">
+    <div class="tete">
+      <p class="etiquette or lever">Façon de faire</p>
+      <div>
+        <h2 class="lever" data-retard="1">Quatre étapes, aucune surprise</h2>
+        <p class="lever" data-retard="2" style="margin-top:1.1rem">On ne chiffre pas au téléphone. On vient voir, on écrit, et le chiffre ne bouge plus.</p>
+      </div>
+    </div>
+    <div class="etapes lever">
+      <div><span class="no">01</span><h3>L'appel</h3><p>Vous décrivez le besoin. On dit tout de suite si ça presse ou si ça peut attendre.</p></div>
+      <div><span class="no">02</span><h3>Le relevé</h3><p>On vient sur place, on mesure, on vérifie le panneau. Le prix part d'ici, par écrit.</p></div>
+      <div><span class="no">03</span><h3>Les travaux</h3><p>Dates tenues, chantier protégé, plancher balayé avant de partir. Le prix ne change pas.</p></div>
+      <div><span class="no">04</span><h3>L'inspection</h3><p>Conformité vérifiée, circuits étiquetés, garantie écrite remise en main propre.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="territoire" class="sombre">
+  <div class="page contact">
+    <div>
+      <p class="etiquette or lever" style="color:var(--laiton-clair)">Territoire</p>
+      <h2 class="lever" data-retard="1" style="font-size:clamp(1.8rem,3.6vw,2.6rem);margin-top:1rem">Le Centre-du-Québec, et ce qui se rend en une heure</h2>
+      <nav class="villes lever" data-retard="2" aria-label="Villes desservies">
+        <a href="#contact">Drummondville <span class="loin">Atelier</span></a>
+        <a href="#contact">Victoriaville <span class="loin">45 min</span></a>
+        <a href="#contact">Trois-Rivières <span class="loin">50 min</span></a>
+      </nav>
+    </div>
+    <div id="contact">
+      <p class="etiquette or lever" style="color:var(--laiton-clair)">Parler à quelqu'un</p>
+      <div class="appel lever" data-retard="1">
+        <b><a href="tel:+18195550100">819 555-0100</a></b>
+        <a class="courriel" href="mailto:info@lussierelectrique.ca">info@lussierelectrique.ca</a>
+      </div>
+      <div class="actions lever" data-retard="2">
+        <a class="btn btn-plein" href="tel:+18195550100">Appeler maintenant</a>
+        <a class="btn btn-fil" href="mailto:info@lussierelectrique.ca">Écrire</a>
+      </div>
+      <div class="urgence lever" data-retard="3">
+        <p class="etiquette" style="color:var(--laiton-clair)">Urgence 24/7</p>
+        <p>Odeur de brûlé, panne totale, panneau qui chauffe : on répond la nuit, la fin de semaine et les jours fériés. C'est la même personne qui décroche.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="page">
+    <div>
+      <a class="marque" href="#" aria-label="Lussier Électrique">
+        <b aria-hidden="true">LUSS<svg class="eclair" viewBox="0 0 56 100"><path d="M 36 0 L 2 58 L 24 58 L 18 100 L 56 38 L 32 38 Z" fill="currentColor"/></svg>ER</b>
+        <i aria-hidden="true">ÉLECTRIQUE</i>
+      </a>
+      <p class="mentions" style="margin-top:1.2rem">Entrepreneur électricien · Licence RBQ 0000-0000-00<br>Lun – ven, 7 h à 17 h · Urgence 24/7</p>
+    </div>
+    <p class="mentions">© <span id="annee"></span> Lussier Électrique<br><a href="#">Politique de confidentialité</a></p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  // Le script n'arme l'effet qu'une fois présent : sans lui, la page est
+  // simplement affichée, jamais vide.
+  document.documentElement.classList.add("js");
+  document.getElementById("annee").textContent = new Date().getFullYear();
+
+  const doux = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const cibles = [...document.querySelectorAll(".lever, .cadre")];
+
+  if (doux){
+    cibles.forEach(el => el.classList.add("vu"));
+  } else {
+    // Un IntersectionObserver ne rattrape pas ce qu'on saute : touche Fin, ou
+    // barre de défilement tirée d'un trait, et les blocs survolés resteraient
+    // invisibles. On compare donc la position, ce qui couvre aussi ce qui est
+    // déjà passé au-dessus de l'écran.
+    const attente = cibles.slice();
+    let prevu = false;
+    const verifier = ()=>{
+      for (let i = attente.length - 1; i >= 0; i--){
+        if (attente[i].getBoundingClientRect().top < innerHeight * .9) attente.splice(i, 1)[0].classList.add("vu");
+      }
+      if (!attente.length){ removeEventListener("scroll", planifier); removeEventListener("resize", planifier); }
+    };
+    const planifier = ()=>{ if (prevu) return; prevu = true;
+      requestAnimationFrame(()=> { prevu = false; verifier(); }); };
+    addEventListener("scroll", planifier, {passive:true});
+    addEventListener("resize", planifier);
+    verifier();
+  }
+
+  // L'entête se pose dès qu'on quitte le héro : sur une image claire, du blanc
+  // sur blanc ne se lit pas.
+  const entete = document.getElementById("entete");
+  const hero = document.querySelector(".hero");
+  const poser = ()=> entete.classList.toggle("pose", scrollY > hero.offsetHeight - 90);
+  addEventListener("scroll", poser, {passive:true});
+  poser();
+})();
+</script>
+</body>
+</html>
