@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="fr-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lussier Électrique — Direction A « Le courant »</title>
+<meta name="description" content="Prototype de direction visuelle A. Maître électricien à Drummondville, Victoriaville et Trois-Rivières.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DIRECTION A — « LE COURANT »
+   Blanc éditorial, calme, haut de gamme. L'effet signature est
+   un trait de courant : une ligne ambre parcourt la page de
+   haut en bas et des impulsions y circulent en continu.
+   ============================================================ */
+
+:root{
+  --encre-900:#0d0f13; --encre-800:#14161a; --encre-700:#22262e;
+  --encre-500:#5f6470; --encre-300:#8b909c;
+  --accent-500:#ffb524; --accent-700:#8a5a00; --accent-100:#fff6e8;
+  --blanc:#fff; --ivoire:#faf9f7; --ivoire-2:#f4f2ee;
+  --trait:#e9e6e0; --trait-fort:#d9d5cc;
+  --page:min(1180px,100% - 2.5rem);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--blanc);color:var(--encre-800);
+  font-family:Inter,system-ui,sans-serif;font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+h1,h2,h3{font-family:"Instrument Serif",Georgia,serif;font-weight:400;letter-spacing:-.015em;line-height:1.06;margin:0}
+p{margin:0}
+a{color:inherit}
+img,svg{display:block;max-width:100%}
+.page{width:var(--page);margin-inline:auto}
+.oeil{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- logo ---------- */
+.logo{display:inline-flex;flex-direction:column;line-height:1;text-decoration:none}
+.logo b{display:inline-flex;align-items:center;font-size:1.42rem;font-weight:900;letter-spacing:-.035em;color:var(--encre-800)}
+.logo .bolt{width:.34em;height:1em;margin-inline:.07em;transform:translateY(.03em);color:var(--accent-500);flex:none}
+.logo i{margin-top:.46em;font-size:.57rem;font-style:normal;font-weight:600;letter-spacing:.36em;color:var(--accent-700)}
+
+/* ---------- bandeau urgence ---------- */
+.urgence{background:var(--encre-900);color:#fff;font-size:.82rem}
+.urgence .page{display:flex;gap:1rem;align-items:center;justify-content:center;padding:.6rem 0;flex-wrap:wrap;text-align:center}
+.pastille{width:7px;height:7px;border-radius:50%;background:var(--accent-500);flex:none;box-shadow:0 0 0 0 rgba(255,181,36,.7);animation:battre 2.4s infinite}
+@keyframes battre{0%{box-shadow:0 0 0 0 rgba(255,181,36,.6)}70%{box-shadow:0 0 0 9px rgba(255,181,36,0)}100%{box-shadow:0 0 0 0 rgba(255,181,36,0)}}
+.urgence a{color:var(--accent-500);font-weight:600;text-underline-offset:3px}
+
+/* ---------- entête ---------- */
+header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--trait)}
+header .page{display:flex;align-items:center;gap:2rem;padding:1rem 0}
+nav{margin-left:auto;display:flex;gap:1.9rem;font-size:.9rem;font-weight:500}
+nav a{text-decoration:none;color:var(--encre-700);padding-bottom:2px;border-bottom:1px solid transparent}
+nav a:hover,nav a:focus-visible{border-color:var(--accent-500)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:999px;padding:.72rem 1.35rem;font-size:.92rem;font-weight:600;text-decoration:none;border:1px solid transparent;transition:background .15s,border-color .15s,color .15s}
+.btn-plein{background:var(--encre-800);color:#fff}
+.btn-plein:hover{background:var(--encre-700)}
+.btn-ambre{background:var(--accent-500);color:var(--encre-900)}
+.btn-ambre:hover{background:#ffd180}
+.btn-contour{border-color:var(--trait-fort);color:var(--encre-800)}
+.btn-contour:hover{border-color:var(--encre-800);background:var(--ivoire)}
+@media (max-width:900px){nav{display:none}}
+
+/* ---------- le courant : l'effet signature ---------- */
+.fil{position:fixed;inset:0;pointer-events:none;z-index:1}
+.fil svg{width:100%;height:100%}
+.fil .trace{fill:none;stroke:var(--trait);stroke-width:1.25}
+.fil .pulse{fill:none;stroke:var(--accent-500);stroke-width:2;stroke-linecap:round;
+  stroke-dasharray:90 1400;filter:drop-shadow(0 0 6px rgba(255,181,36,.55));
+  animation:courir 6.5s linear infinite}
+.fil .pulse.b{animation-duration:9s;animation-delay:-3s;opacity:.55}
+@keyframes courir{from{stroke-dashoffset:1490}to{stroke-dashoffset:0}}
+.contenu{position:relative;z-index:2}
+
+/* ---------- héro ---------- */
+.hero{padding:clamp(3.5rem,9vw,7.5rem) 0 clamp(3rem,6vw,5rem)}
+.hero .page{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+.surtitre{display:inline-flex;align-items:center;flex-wrap:wrap;row-gap:.25rem;gap:.55rem;font-size:.74rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-700)}
+.surtitre::before{content:"";width:28px;height:1px;background:var(--accent-500)}
+h1{font-size:clamp(2.9rem,7.2vw,5.1rem);margin:1.1rem 0 1.3rem}
+h1 em{font-style:italic;color:var(--accent-700)}
+.hero p.intro{font-size:1.12rem;color:var(--encre-500);max-width:34ch}
+.actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:2rem}
+.tel-gros{display:block;margin-top:1.6rem;font-size:.88rem;color:var(--encre-300)}
+.tel-gros strong{display:block;font-family:"Instrument Serif",serif;font-weight:400;font-size:2rem;color:var(--encre-900);letter-spacing:-.01em}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--trait);margin-top:3rem}
+.stats div{padding:1.15rem 1rem 0}
+.stats div+div{border-left:1px solid var(--trait)}
+.stats b{display:block;font-family:"Instrument Serif",serif;font-weight:400;font-size:1.85rem;line-height:1}
+.stats span{font-size:.8rem;color:var(--encre-500)}
+.cadre{position:relative;border:1px solid var(--trait);border-radius:20px;overflow:hidden;background:var(--ivoire)}
+.ph{display:grid;place-content:center;gap:.35rem;text-align:center;aspect-ratio:4/5;
+  background:repeating-linear-gradient(135deg,var(--ivoire) 0 12px,var(--ivoire-2) 12px 24px);color:var(--encre-300)}
+.ph code{font-family:ui-monospace,monospace;font-size:.76rem;color:var(--encre-500)}
+.ph span{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+.badge-rbq{position:absolute;left:1rem;bottom:1rem;background:#fff;border:1px solid var(--trait);border-radius:12px;padding:.6rem .85rem;font-size:.74rem;line-height:1.35}
+.badge-rbq b{display:block;font-weight:700;letter-spacing:.06em}
+@media (max-width:900px){.hero .page{grid-template-columns:1fr}.ph{aspect-ratio:16/10}
+  /* le fil est un effet de bureau : étiré sur un écran étroit il barre le texte */
+  .fil{display:none}}
+
+/* ---------- sections ---------- */
+section{padding:clamp(3.5rem,7vw,6rem) 0}
+.tete{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;margin-bottom:2.75rem;flex-wrap:wrap}
+.tete h2{font-size:clamp(2rem,4.2vw,3rem)}
+.tete p{color:var(--encre-500);max-width:42ch}
+.ivoire{background:var(--ivoire)}
+
+.grille{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--trait);border:1px solid var(--trait);border-radius:18px;overflow:hidden}
+.carte{background:#fff;padding:1.9rem 1.7rem 2.1rem;display:flex;flex-direction:column;gap:.6rem;text-decoration:none;transition:background .18s}
+.carte:hover{background:var(--accent-100)}
+.carte .num{font-family:ui-monospace,monospace;font-size:.74rem;color:var(--accent-700);letter-spacing:.1em}
+.carte h3{font-size:1.4rem}
+.carte p{font-size:.94rem;color:var(--encre-500)}
+.carte .fleche{margin-top:auto;padding-top:1.1rem;font-size:.85rem;font-weight:600;color:var(--encre-800)}
+@media (max-width:900px){.grille{grid-template-columns:1fr}}
+
+.duo{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--trait);border:1px solid var(--trait);border-radius:18px;overflow:hidden}
+@media (max-width:760px){.duo{grid-template-columns:1fr}}
+
+/* ---------- avis ---------- */
+.avis{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.avis blockquote{margin:0;background:#fff;border:1px solid var(--trait);border-radius:18px;padding:1.8rem}
+.etoiles{color:var(--accent-700);letter-spacing:.18em;font-size:.85rem}
+.avis p{margin:.9rem 0 1.2rem;font-family:"Instrument Serif",serif;font-size:1.22rem;line-height:1.4}
+.avis footer{font-size:.84rem;color:var(--encre-500)}
+@media (max-width:900px){.avis{grid-template-columns:1fr}}
+
+/* ---------- territoire ---------- */
+.villes{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--trait-fort)}
+.villes a{padding:1.5rem 0;text-decoration:none;display:flex;align-items:baseline;gap:.8rem;border-bottom:1px solid var(--trait)}
+.villes a:hover{color:var(--accent-700)}
+.villes .nom{font-family:"Instrument Serif",serif;font-size:1.6rem}
+.villes .sous{font-size:.78rem;color:var(--encre-300)}
+@media (max-width:760px){.villes{grid-template-columns:1fr}}
+
+/* ---------- appel à l'action ---------- */
+.cta{background:var(--encre-900);color:#fff;border-radius:24px;padding:clamp(2.5rem,6vw,4.5rem);text-align:center}
+.cta h2{font-size:clamp(2.1rem,5vw,3.4rem);color:#fff}
+.cta p{color:#a8adb8;margin:1rem auto 2rem;max-width:46ch}
+
+/* ---------- pied ---------- */
+footer.pied{border-top:1px solid var(--trait);padding:3.5rem 0 7rem;font-size:.88rem;color:var(--encre-500)}
+.pied .page{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2.5rem}
+.pied h4{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--encre-800);margin:0 0 .9rem}
+.pied ul{list-style:none;margin:0;padding:0;display:grid;gap:.45rem}
+.pied a{text-decoration:none}.pied a:hover{color:var(--accent-700)}
+.pied .page.mentions{display:block}
+.mentions{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--trait);font-size:.78rem;color:var(--encre-300)}
+@media (max-width:760px){.pied .page{grid-template-columns:1fr}}
+
+/* ---------- barre d'appel mobile ---------- */
+.barre{position:fixed;left:0;right:0;bottom:0;z-index:50;display:none;
+  background:rgba(13,15,19,.97);backdrop-filter:blur(10px);padding:.55rem;
+  padding-bottom:calc(.55rem + env(safe-area-inset-bottom));gap:.45rem}
+.barre a{flex:1;display:flex;flex-direction:column;align-items:center;gap:.18rem;padding:.55rem 0;border-radius:12px;
+  text-decoration:none;color:#fff;font-size:.72rem;font-weight:600}
+.barre a.principal{background:var(--accent-500);color:var(--encre-900)}
+.barre svg{width:19px;height:19px}
+@media (max-width:900px){.barre{display:flex}footer.pied{padding-bottom:7.5rem}}
+
+/* ---- correctifs mobile communs aux trois directions ----
+   1. le bouton d'appel se colle à droite quand la nav disparaît
+   2. le bandeau garde l'essentiel — l'appel — et laisse tomber la phrase
+   3. la mention RBQ ne se coupe plus au milieu du numéro */
+@media (max-width:980px){ header .page > .btn{margin-left:auto} }
+@media (max-width:560px){ .long{display:none} }
+.nowrap{white-space:nowrap}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     Toutes les données business viennent de cet objet unique.
+     En production il devient src/config/site.ts.
+     ⚠ Les trois avis sont FICTIFS (placeholders à remplacer).
+     ============================================================ -->
+<script>
+const SITE = {
+  nom:"Lussier Électrique",
+  telephone:"819-555-0100", tel:"tel:+18195550100", sms:"sms:+18195550100",
+  courriel:"info@lussierelectrique.ca", rbq:"0000-0000-00",
+  villes:[
+    {nom:"Drummondville", slug:"electricien-drummondville", note:"Siège social"},
+    {nom:"Victoriaville", slug:"electricien-victoriaville", note:"Service quotidien"},
+    {nom:"Trois-Rivières", slug:"electricien-trois-rivieres", note:"Service quotidien"}
+  ],
+  heures:{semaine:"Lun – ven, 7 h à 17 h", urgence:"Urgence 24/7"},
+  stats:[
+    {v:"15 ans", l:"de métier"},
+    {v:"2 500+", l:"projets réalisés"},
+    {v:"4,9 ★", l:"sur Google"}
+  ],
+  residentiel:[
+    {t:"Panneau électrique", d:"Remplacement, passage à 200 A, correction de panneau non conforme."},
+    {t:"Borne de recharge VÉ", d:"Installation niveau 2, calcul de charge, demande de subvention."},
+    {t:"Rénovation et filage", d:"Refilage complet, ajout de circuits, sous-sol et agrandissement."},
+    {t:"Éclairage intérieur et extérieur", d:"Encastrés, plan d'éclairage, façade, paysager, minuteries."},
+    {t:"Génératrice", d:"Génératrice d'urgence, panneau de transfert automatique."},
+    {t:"Inspection", d:"Rapport avant achat, vérification d'assurance, thermographie."}
+  ],
+  commercial:[
+    {t:"Installation commerciale", d:"Locaux neufs, aménagement, entrées électriques, triphasé."},
+    {t:"Entretien préventif", d:"Contrat annuel, thermographie, registre d'intervention."},
+    {t:"Éclairage commercial", d:"Conversion DEL, rendement lumineux, économies mesurées."},
+    {t:"Mise aux normes", d:"Correction d'avis, conformité au Code, suivi d'inspection."}
+  ],
+  avis:[
+    {n:"Marie-Claude T.", v:"Drummondville", t:"Panneau remplacé dans la journée, chantier laissé propre. On savait exactement ce qu'on payait avant que ça commence."},
+    {n:"Simon B.", v:"Victoriaville", t:"Borne installée pour ma Ioniq, avec la paperasse de subvention faite. Rien à redire."},
+    {n:"Restaurant Le Cellier", v:"Trois-Rivières", t:"Panne un vendredi soir de service. Sur place en quarante minutes, on n'a pas fermé."}
+  ]
+};
+</script>
+
+<!-- bandeau urgence -->
+<div class="urgence">
+  <div class="page">
+    <span class="pastille" aria-hidden="true"></span>
+    <span><span class="long">Panne, odeur de brûlé, disjoncteur qui saute&nbsp;? </span><strong>Service d'urgence 24/7</strong></span>
+    <a id="urg-tel" href="#">Appeler maintenant</a>
+  </div>
+</div>
+
+<header>
+  <div class="page">
+    <a class="logo" href="#" aria-label="Lussier Électrique, accueil">
+      <b aria-hidden="true">LUSS<svg class="bolt" viewBox="0 0 56 100"><path d="M 36 0 L 2 58 L 24 58 L 18 100 L 56 38 L 32 38 Z" fill="currentColor"/></svg>ER</b>
+      <i aria-hidden="true">ÉLECTRIQUE</i>
+    </a>
+    <nav>
+      <a href="#residentiel">Résidentiel</a>
+      <a href="#commercial">Commercial</a>
+      <a href="#urgence">Urgence</a>
+      <a href="#territoire">Territoire</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-plein" id="entete-tel" href="#">Appeler</a>
+  </div>
+</header>
+
+<!-- l'effet signature : le fil de courant -->
+<div class="fil" aria-hidden="true">
+  <svg viewBox="0 0 1440 900" preserveAspectRatio="none">
+    <path class="trace" d="M 120 -50 L 120 250 L 420 250 L 420 520 L 1050 520 L 1050 300 L 1330 300 L 1330 960"/>
+    <path class="pulse" d="M 120 -50 L 120 250 L 420 250 L 420 520 L 1050 520 L 1050 300 L 1330 300 L 1330 960"/>
+    <path class="trace" d="M 1380 -50 L 1380 140 L 760 140 L 760 700 L 200 700 L 200 960"/>
+    <path class="pulse b" d="M 1380 -50 L 1380 140 L 760 140 L 760 700 L 200 700 L 200 960"/>
+  </svg>
+</div>
+
+<main class="contenu">
+
+<section class="hero">
+  <div class="page">
+    <div>
+      <span class="surtitre">Maître électricien · <span class="nowrap">RBQ <span id="rbq-hero"></span></span></span>
+      <h1>Le courant passe,<br><em>sans mauvaise surprise.</em></h1>
+      <p class="intro">Panneaux, bornes de recharge, rénovation, urgences. Prix annoncé avant les travaux, chantier laissé propre, garantie écrite.</p>
+      <div class="actions">
+        <a class="btn btn-ambre" id="hero-tel" href="#">Appeler maintenant</a>
+        <a class="btn btn-contour" href="#contact">Demander une soumission</a>
+      </div>
+      <span class="tel-gros">Du lundi au vendredi, 7 h à 17 h <strong id="hero-num"></strong></span>
+      <div class="stats" id="stats"></div>
+    </div>
+    <div class="cadre">
+      <div class="ph">
+        <span>Image</span>
+        <code>/images/hero-electricien-panneau.jpg</code>
+        <code>1200 × 1500</code>
+      </div>
+      <div class="badge-rbq">Licence RBQ<b id="rbq-badge"></b></div>
+    </div>
+  </div>
+</section>
+
+<section id="residentiel">
+  <div class="page">
+    <div class="tete">
+      <div>
+        <span class="surtitre">Résidentiel</span>
+        <h2>Pour la maison</h2>
+      </div>
+      <p>Six services qui couvrent l'essentiel de ce qu'un propriétaire demande à un électricien, du panneau à l'inspection.</p>
+    </div>
+    <div class="grille" id="grille-res"></div>
+  </div>
+</section>
+
+<section class="ivoire" id="commercial">
+  <div class="page">
+    <div class="tete">
+      <div>
+        <span class="surtitre">Commercial</span>
+        <h2>Pour le commerce</h2>
+      </div>
+      <p>Interventions planifiées hors des heures d'ouverture quand c'est possible. Un local fermé, c'est du chiffre d'affaires perdu.</p>
+    </div>
+    <div class="duo" id="grille-com"></div>
+  </div>
+</section>
+
+<section id="urgence">
+  <div class="page">
+    <div class="cta">
+      <h2>Une urgence électrique&nbsp;?</h2>
+      <p>Odeur de brûlé, étincelles, panne totale, panneau qui chauffe. On répond jour et nuit, week-ends et jours fériés.</p>
+      <div class="actions" style="justify-content:center">
+        <a class="btn btn-ambre" id="cta-tel" href="#">Appeler le <span id="cta-num"></span></a>
+        <a class="btn btn-contour" id="cta-sms" href="#" style="border-color:rgba(255,255,255,.25);color:#fff">Envoyer un texto</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ivoire">
+  <div class="page">
+    <div class="tete">
+      <div><span class="surtitre">Avis</span><h2>Ce qu'on en dit</h2></div>
+      <p>Note moyenne de 4,9 sur Google. <em>Avis fictifs — placeholders à remplacer par les vrais.</em></p>
+    </div>
+    <div class="avis" id="avis"></div>
+  </div>
+</section>
+
+<section id="territoire">
+  <div class="page">
+    <div class="tete">
+      <div><span class="surtitre">Territoire</span><h2>Où on se déplace</h2></div>
+      <p>Chaque ville a sa page, générée automatiquement à partir du fichier de configuration.</p>
+    </div>
+    <div class="villes" id="villes"></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pied" id="contact">
+  <div class="page">
+    <div>
+      <a class="logo" href="#" aria-label="Lussier Électrique">
+        <b aria-hidden="true">LUSS<svg class="bolt" viewBox="0 0 56 100"><path d="M 36 0 L 2 58 L 24 58 L 18 100 L 56 38 L 32 38 Z" fill="currentColor"/></svg>ER</b>
+        <i aria-hidden="true">ÉLECTRIQUE</i>
+      </a>
+      <p style="margin-top:1.2rem;max-width:32ch">Entrepreneur électricien à Drummondville. Résidentiel, commercial et urgence 24/7.</p>
+      <p style="margin-top:1rem">Licence RBQ <strong id="rbq-pied"></strong></p>
+    </div>
+    <div>
+      <h4>Joindre</h4>
+      <ul>
+        <li><a id="pied-tel" href="#"></a></li>
+        <li><a id="pied-courriel" href="#"></a></li>
+        <li id="pied-heures"></li>
+        <li><strong>Urgence 24/7</strong></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Territoire</h4>
+      <ul id="pied-villes"></ul>
+    </div>
+  </div>
+  <div class="page mentions">
+    © <span id="annee"></span> Lussier Électrique · Politique de confidentialité · Prototype de direction visuelle A, contenu placeholder
+  </div>
+</footer>
+
+<nav class="barre" aria-label="Actions rapides">
+  <a class="principal" id="barre-tel" href="#">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+    Appeler
+  </a>
+  <a id="barre-sms" href="#">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.8-.9L3 20.5l1.5-4.2A8.4 8.4 0 0 1 3.6 12a8.4 8.4 0 0 1 8.4-8.5h.5a8.4 8.4 0 0 1 8.5 8z"/></svg>
+    Texto
+  </a>
+  <a href="#contact">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15h6M9 11h3"/></svg>
+    Soumission
+  </a>
+</nav>
+
+<script>
+(function(){
+  const $ = s => document.querySelector(s);
+  const tel = a => { a.href = SITE.tel; return a; };
+
+  // liens téléphone / texto — une seule source, le config
+  ["#urg-tel","#entete-tel","#hero-tel","#cta-tel","#pied-tel","#barre-tel"].forEach(s=>tel($(s)));
+  $("#barre-sms").href = SITE.sms;
+  $("#cta-sms").href = SITE.sms;
+  $("#hero-num").textContent = SITE.telephone;
+  $("#cta-num").textContent = SITE.telephone;
+  $("#pied-tel").textContent = SITE.telephone;
+  $("#pied-courriel").textContent = SITE.courriel;
+  $("#pied-courriel").href = "mailto:" + SITE.courriel;
+  $("#pied-heures").textContent = SITE.heures.semaine;
+  ["#rbq-hero","#rbq-badge","#rbq-pied"].forEach(s=>$(s).textContent = SITE.rbq);
+  $("#annee").textContent = new Date().getFullYear();
+
+  $("#stats").innerHTML = SITE.stats.map(s=>`<div><b>${s.v}</b><span>${s.l}</span></div>`).join("");
+
+  const carte = (s,i)=>`<a class="carte" href="#contact">
+      <span class="num">${String(i+1).padStart(2,"0")}</span>
+      <h3>${s.t}</h3><p>${s.d}</p>
+      <span class="fleche">En savoir plus →</span></a>`;
+  $("#grille-res").innerHTML = SITE.residentiel.map(carte).join("");
+  $("#grille-com").innerHTML = SITE.commercial.map(carte).join("");
+
+  $("#avis").innerHTML = SITE.avis.map(a=>`<blockquote>
+      <div class="etoiles" aria-label="5 étoiles sur 5">★★★★★</div>
+      <p>« ${a.t} »</p><footer>${a.n} — ${a.v}</footer></blockquote>`).join("");
+
+  $("#villes").innerHTML = SITE.villes.map(v=>`<a href="/${v.slug}">
+      <span class="nom">${v.nom}</span><span class="sous">${v.note}</span></a>`).join("");
+  $("#pied-villes").innerHTML = SITE.villes.map(v=>`<li><a href="/${v.slug}">Électricien ${v.nom}</a></li>`).join("");
+})();
+</script>
+</body>
+</html>
