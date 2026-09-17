@@ -58,6 +58,8 @@
 
   --font-sans: var(--font-body), system-ui, sans-serif;
   --font-display: var(--font-display), Georgia, serif;
+  /* Site Lussier Électrique (route /lussier) — substitut libre de Stack Sans */
+  --font-lussier: var(--font-lussier-sans), system-ui, sans-serif;
 
   --radius-xl2: 1.5rem;
 
