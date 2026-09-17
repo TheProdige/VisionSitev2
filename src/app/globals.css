@@ -58,6 +58,8 @@
 
   --font-sans: var(--font-body), system-ui, sans-serif;
   --font-display: var(--font-display), Georgia, serif;
+  /* Gabarit Modern/Modora (route /modora) — substitut libre de Stack Sans */
+  --font-modora: var(--font-modora-sans), system-ui, sans-serif;
 
   --radius-xl2: 1.5rem;
 
