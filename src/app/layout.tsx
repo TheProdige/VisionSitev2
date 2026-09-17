@@ -17,11 +17,11 @@ const fraunces = Fraunces({
   style: ["normal", "italic"],
 });
 
-// Police du gabarit Modora (route /modora).
+// Police du site Lussier Électrique (route /lussier).
 // L'original utilise Stack Sans Text, une police propriétaire hébergée par
 // Framer ; Inter Tight en est le substitut libre le plus proche.
 const interTight = Inter_Tight({
-  variable: "--font-modora-sans",
+  variable: "--font-lussier-sans",
   subsets: ["latin"],
   display: "swap",
   weight: ["300", "400", "500", "600"],

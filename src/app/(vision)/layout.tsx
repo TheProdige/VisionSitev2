@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 
 /**
  * Habillage du site Vision Lavage : en-tête, pied de page et CTA flottant.
- * Isolé du groupe (modora), qui a son propre habillage.
+ * Isolé du groupe (lussier), qui a son propre habillage.
  */
 export default function VisionLayout({
   children,
